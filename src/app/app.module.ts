@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { SetListComponent } from './sets/set-list.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SetListComponent
   ],
   imports: [
     BrowserModule
