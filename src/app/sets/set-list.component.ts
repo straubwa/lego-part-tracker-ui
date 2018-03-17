@@ -8,6 +8,7 @@ export class SetListComponent {
     pageTitle: string = 'List of Lego Sets';
     imageWidth: number = 200;
     imageMargin: number = 2;
+    listFilter: string = 'Ninjago';
     sets: any[] = [
         {
             "set_num": "70612-1",
