@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class='table-responsive'>
-        <table class='table'>
+        <table class='table' *ngIf='sets && sets.length'>
             <thead>
                 <tr>
                     <th> </th>
@@ -26,7 +26,12 @@
                 </tr>
             </thead>
             <tbody>
-
+                <tr *ngFor='let set of sets'>
+                    <td><img [src]='set.set_img_url' [style.width.px]='imageWidth' [style.margin.px]='imageMargin' > </td>
+                    <td>{{ set.set_num }}</td>
+                    <td>{{ set.name }}</td>                    
+                    <td>{{ set.theme }}</td>
+                </tr>
             </tbody>
         </table>
     </div>
