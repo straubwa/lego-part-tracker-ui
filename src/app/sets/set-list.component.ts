@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import { ISet } from './set';
 
 @Component({
     selector: 'app-sets',
@@ -9,7 +10,8 @@ export class SetListComponent {
     imageWidth: number = 200;
     imageMargin: number = 2;
     listFilter: string = 'Ninjago';
-    sets: any[] = [
+
+    sets: ISet[] = [
         {
             "set_num": "70612-1",
             "name": "Green Ninja Mech Dragon",
