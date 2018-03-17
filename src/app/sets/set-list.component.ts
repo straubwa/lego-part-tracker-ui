@@ -9,8 +9,17 @@ export class SetListComponent {
     pageTitle: string = 'List of Lego Sets';
     imageWidth: number = 200;
     imageMargin: number = 2;
-    listFilter: string = 'Ninjago';
 
+    _listFilter: string;
+    get listFilter(): string {
+        return this._listFilter;
+    }
+    set listFilter(value:string){
+        this._listFilter = value;
+        this.filteredSets = this.listFilter ? this.performFilter(this.listFilter) : this.sets;
+    }
+
+    filteredSets: ISet[];
     sets: ISet[] = [
         {
             "set_num": "70612-1",
@@ -48,4 +57,14 @@ export class SetListComponent {
             "set_img_url": "https://m.rebrickable.com/media/sets/70656-1.jpg"
         }
     ];
+
+    constructor() {
+        this.filteredSets = this.sets;
+        this.listFilter = 'Ninjago';
+    }
+
+    performFilter(filterBy: string): ISet[] {
+        filterBy = filterBy.toLocaleLowerCase();
+        return this.sets.filter((set: ISet) => set.name.toLocaleLowerCase().indexOf(filterBy) !== -1 || set.theme.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    }
 }
