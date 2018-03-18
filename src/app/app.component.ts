@@ -8,5 +8,5 @@ import { SetService } from './sets/set.service';
   providers: [SetService]
 })
 export class AppComponent {
-  title = 'Lego Set Finder';
+  title = 'Lego Sets We Own';
 }
