@@ -1,47 +1,26 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
 
 import { ISet } from './set';
 
 @Injectable()
 export class SetService {
+    private _allSetsUrl = 'http://localhost:63234/api/sets';
 
-    getSets(): ISet[] {
-        return [
-            {
-                "setNumber": "70612-1",
-                "name": "Green Ninja Mech Dragon",
-                "themeId": 616,
-                "theme": "Ninjago > Ninjago The Movie",
-                "setImageUrl": "https://m.rebrickable.com/media/sets/70612-1.jpg"
-            },
-            {
-                "setNumber": "70614-1",
-                "name": "Lightning Jet",
-                "themeId": 616,
-                "theme": "Ninjago > Ninjago The Movie",
-                "setImageUrl": "https://m.rebrickable.com/media/sets/70614-1.jpg"
-            },
-            {
-                "setNumber": "70608-1",
-                "name": "Master Falls",
-                "themeId": 616,
-                "theme": "Ninjago > Ninjago The Movie",
-                "setImageUrl": "https://m.rebrickable.com/media/sets/70608-1.jpg"
-            },
-            {
-                "setNumber": "70611-1",
-                "name": "Water Strider",
-                "themeId": 616,
-                "theme": "Ninjago > Ninjago The Movie",
-                "setImageUrl": "https://m.rebrickable.com/media/sets/70611-1.jpg"
-            },
-            {
-                "setNumber": "70656-1",
-                "name": "garmadon, Garmadon, GARMADON!",
-                "themeId": 435,
-                "theme": "Ninjago",
-                "setImageUrl": "https://m.rebrickable.com/media/sets/70656-1.jpg"
-            }
-        ]
+    constructor(private _http: HttpClient) {}
+
+    getSets(): Observable<ISet[]> {
+        return this._http.get<ISet[]>(this._allSetsUrl)
+            .do(data => console.log('all: ' + JSON.stringify(data)))
+            .catch(this.handleError);
+    }
+
+    private handleError(err: HttpErrorResponse) {
+        console.log(err.message);
+        return Observable.throw(err.message);
     }
 }

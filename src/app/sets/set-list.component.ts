@@ -10,6 +10,7 @@ export class SetListComponent {
     pageTitle: string = 'List of Lego Sets';
     imageWidth: number = 200;
     imageMargin: number = 2;
+    errorMessage: string;
 
     _listFilter: string;
     get listFilter(): string {
@@ -32,7 +33,12 @@ export class SetListComponent {
     }
 
     ngOnInit(): void {
-        this.sets = this._setService.getSets();
+        this._setService.getSets()
+            .subscribe(sets => {
+                this.sets = sets;
+                this.filteredSets = this.sets;
+            }, 
+                error => this.errorMessage = <any>error);
         this.filteredSets = this.sets;
         this.listFilter = 'Ninjago';
     }
