@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('hello-world-angular App', () => {
+describe('lego-part-tracker-ui App', () => {
   let page: AppPage;
 
   beforeEach(() => {
