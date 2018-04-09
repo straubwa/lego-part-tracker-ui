@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { SetListComponent } from './sets/set-list.component';
+import { SetDetailComponent } from './sets/set-detail.component';
 import { HomeComponent } from './home/home.component';
 
 
@@ -13,6 +14,7 @@ import { HomeComponent } from './home/home.component';
   declarations: [
     AppComponent,
     SetListComponent,
+    SetDetailComponent,
     HomeComponent
   ],
   imports: [
@@ -21,6 +23,7 @@ import { HomeComponent } from './home/home.component';
     HttpClientModule,
     RouterModule.forRoot([
       {path: 'sets', component: SetListComponent},
+      {path: 'sets/:setNumber', component: SetDetailComponent},
       {path: 'home', component: HomeComponent},
       {path: '', redirectTo:'home', pathMatch: 'full'},
       {path: '**', redirectTo:'home', pathMatch: 'full'}    ])

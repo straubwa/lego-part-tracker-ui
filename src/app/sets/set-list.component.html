@@ -25,7 +25,7 @@
             <tbody>
                 <tr *ngFor='let set of filteredSets'>
                     <td><img [src]='set.setImageUrl' [style.width.px]='imageWidth' [style.margin.px]='imageMargin' > </td>
-                    <td>{{ set.setNumber }}</td>
+                    <td><a [routerLink]="['/sets', set.setNumber]">{{ set.setNumber }}</a></td>
                     <td>{{ set.name }}</td>                    
                     <td>{{ set.theme }}</td>
                 </tr>
