@@ -9,13 +9,20 @@ import { ISet } from './set';
 
 @Injectable()
 export class SetService {
-    private _allSetsUrl = 'http://localhost:63234/api/sets';
+    private _baseServiceUrl = 'http://localhost:63234/api';
 
     constructor(private _http: HttpClient) {}
 
     getSets(): Observable<ISet[]> {
-        return this._http.get<ISet[]>(this._allSetsUrl)
+        var getUrl = this._baseServiceUrl + "/sets";
+        return this._http.get<ISet[]>(getUrl)
             .do(data => console.log('all: ' + JSON.stringify(data)))
+            .catch(this.handleError);
+    }
+
+    getSet(setNumber: string): Observable<ISet>{
+        var getUrl = this._baseServiceUrl + "/sets/" + setNumber;
+        return this._http.get<ISet>(getUrl)
             .catch(this.handleError);
     }
 
