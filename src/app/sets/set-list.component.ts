@@ -3,7 +3,6 @@ import { ISet } from './set';
 import { SetService } from './set.service';
 
 @Component({
-    selector: 'app-sets',
     templateUrl: './set-list.component.html'
 })
 export class SetListComponent {
