@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute } from '@angular/router';
 
 import { ISet } from './set';
+import { ISetPart } from './isetpart';
 import { SetService } from './set.service';
 
 @Component({
@@ -12,7 +13,9 @@ export class SetDetailComponent implements OnInit {
   pageTitle: string = 'Details for set ';
   errorMessage: string;
   imageWidth: number = 600; 
+  setPartWidth: number = 40;
   set: ISet;
+  setParts: ISetPart[];
 
   constructor(private _route: ActivatedRoute, private _setService: SetService) { }
 
@@ -24,7 +27,13 @@ export class SetDetailComponent implements OnInit {
       .subscribe(set => {
         this.set = set;
       },
-        error => this.errorMessage = <any>error);
+      error => this.errorMessage = <any>error);
+
+    this._setService.getSetParts(setNumber)
+      .subscribe(setParts => {
+        this.setParts = setParts;
+      },
+      error => this.errorMessage = <any>error);
   }
 
 }

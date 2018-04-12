@@ -4,3 +4,27 @@
 <div>{{ set.setNumber }}</div>
 <div>{{ set.name }}</div>                    
 <div>{{ set.theme }}</div>
+
+
+<div class='table-responsive'>
+    <table class='table' *ngIf='setParts && setParts.length'>
+        <thead>
+            <tr>
+                <th> </th>
+                <th>Part No.</th>
+                <th>Name</th>                    
+                <th>Need</th>               
+                <th>Found</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let setPart of setParts'>
+                <td><img [src]='setPart.partImageUrl' [style.width.px]='setPartWidth' [style.margin.px]='imageMargin' > </td>
+                <td>{{ setPart.partNumber }}</td>
+                <td>{{ setPart.name }}</td>                    
+                <td>{{ setPart.quantityNeeded }}</td>         
+                <td>{{ setPart.quantityFound }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
