@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 
 import { ISet } from './set';
+import { ISetPart } from './isetpart';
 
 @Injectable()
 export class SetService {
@@ -16,13 +17,18 @@ export class SetService {
     getSets(): Observable<ISet[]> {
         var getUrl = this._baseServiceUrl + "/sets";
         return this._http.get<ISet[]>(getUrl)
-            .do(data => console.log('all: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }
 
     getSet(setNumber: string): Observable<ISet>{
         var getUrl = this._baseServiceUrl + "/sets/" + setNumber;
         return this._http.get<ISet>(getUrl)
+            .catch(this.handleError);
+    }
+
+    getSetParts(setNumber: string): Observable<ISetPart[]> {
+        var getUrl = this._baseServiceUrl + "/sets/" + setNumber + "/parts";
+        return this._http.get<ISetPart[]>(getUrl)
             .catch(this.handleError);
     }
 
