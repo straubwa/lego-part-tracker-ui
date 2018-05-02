@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/straubwa/lego-part-tracker-ui.svg?branch=master)](https://travis-ci.org/straubwa/lego-part-tracker-ui)
+
 # lego part tracker ui
 
 This is the UI project that helps keep track of finding Lego pieces needed to create a set that you own.  Its much easier to get all the pieces needed for a set first, then assemble it and not looking through a large collection while trying to build it.  This leverages data from http://rebrickable.com - a great site for all things Lego. 
