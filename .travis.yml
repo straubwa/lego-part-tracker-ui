@@ -1,6 +1,10 @@
 sudo: required
 dist: trusty
 
+branches:  
+  only:
+    - master
+
 addons:
   chrome: stable
 
@@ -14,3 +18,9 @@ before_script:
 script:
   - ng build --prod --aot
   - ng test
+
+deploy:
+  provider: azure_web_apps
+  skip_cleanup: true
+  verbose: true
+  site: BrickTracker
