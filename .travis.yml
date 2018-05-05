@@ -19,6 +19,9 @@ script:
   - ng build --prod --aot
   - ng test
 
+before_deploy:
+  - cd dist
+
 deploy:
   provider: azure_web_apps
   skip_cleanup: true
