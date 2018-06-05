@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../../environments/environment';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
@@ -10,7 +11,7 @@ import { ISetPart } from './isetpart';
 
 @Injectable()
 export class SetService {
-    private _baseServiceUrl = 'http://localhost:63234/api';
+    private _baseServiceUrl = environment.setServiceApiUrl;
 
     constructor(private _http: HttpClient) {}
 
