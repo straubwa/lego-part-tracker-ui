@@ -12,6 +12,9 @@ language: node_js
 node_js:
   - "8.10"
 
+services:
+  - docker
+
 before_script:
   - npm install -g @angular/cli
 
@@ -19,8 +22,8 @@ script:
   - ng build --prod --aot
   - ng test
 
-deploy:
-  provider: azure_web_apps
-  skip_cleanup: true
-  verbose: true
-  site: BrickTracker
+after_success:
+  - docker build -t straubwa/lego-part-tracker-ui -f ./.docker/nginx.dockerfile .
+  - docker tag straubwa/lego-part-tracker-ui straubwa/lego-part-tracker-ui:$(git rev-parse --short HEAD)
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker push straubwa/lego-part-tracker-ui
