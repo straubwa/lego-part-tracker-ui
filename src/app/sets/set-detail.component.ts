@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute } from '@angular/router';
 
-import { ISet } from './set';
+import { ISet } from './iset';
 import { ISetPart } from './isetpart';
 import { SetService } from './set.service';
 

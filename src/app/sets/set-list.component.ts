@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import { ISet } from './set';
+import { ISet } from './iset';
 import { SetService } from './set.service';
 
 @Component({

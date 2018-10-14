@@ -6,7 +6,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 
-import { ISet } from './set';
+import { ISet } from './iset';
 import { ISetPart } from './isetpart';
 
 @Injectable()
