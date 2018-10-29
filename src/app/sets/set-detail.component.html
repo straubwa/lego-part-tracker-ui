@@ -15,15 +15,17 @@
                 <th>Name</th>                    
                 <th>Need</th>               
                 <th>Found</th>
+                <th> </th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor='let setPart of setParts'>
                 <td><img [src]='setPart.partImageUrl' [style.width.px]='setPartWidth' [style.margin.px]='imageMargin' > </td>
                 <td>{{ setPart.partNumber }}</td>
-                <td>{{ setPart.name }}</td>                    
-                <td>{{ setPart.quantityNeeded }}</td>         
+                <td>{{ setPart.name }}</td>
+                <td>{{ setPart.quantityNeeded }}</td>
                 <td>{{ setPart.quantityFound }}</td>
+                <td><button class='btn btn-primary' (click)='updatePartFoundCount(setPart)' >Found</button><input type='number' [(ngModel)]='setPart.quantityRemaining'></td>
             </tr>
         </tbody>
     </table>

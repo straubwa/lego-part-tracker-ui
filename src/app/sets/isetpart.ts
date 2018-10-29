@@ -9,4 +9,5 @@ export interface ISetPart {
     "setNumber": string;
     "quantityFound": number;
     "quantityNeeded": number;
+    "quantityRemaining": number; //number of parts remaining to find
 }
