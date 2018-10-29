@@ -36,10 +36,9 @@ export class SetListComponent {
             .subscribe(sets => {
                 this.sets = sets;
                 this.filteredSets = this.sets;
+                this.listFilter = 'Ninjago';
             }, 
                 error => this.errorMessage = <any>error);
-        this.filteredSets = this.sets;
-        this.listFilter = 'Ninjago';
     }
 
 }
