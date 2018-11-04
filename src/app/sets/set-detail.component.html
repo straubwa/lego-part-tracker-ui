@@ -7,9 +7,9 @@
 
 <div class="row">
     <div class="btn-group btn-group-sm">
-        <button class="btn btn-default" [class.active]="filterBy==='all'" (click)="performFilter('all')">All</button>
-        <button class="btn btn-default" [class.active]="filterBy==='find'" (click)="performFilter('find')">Need To Find</button>
-        <button class="btn btn-default" [class.active]="filterBy==='found'" (click)="performFilter('found')">Found</button>
+        <button class="btn btn-default" [class.active]="filteredBy==='all'" (click)="performFilter('all')">All</button>
+        <button class="btn btn-default" [class.active]="filteredBy==='find'" (click)="performFilter('find')">Need To Find</button>
+        <button class="btn btn-default" [class.active]="filteredBy==='found'" (click)="performFilter('found')">Found</button>
     </div>
 </div>
 
