@@ -33,6 +33,19 @@ export class SetService {
             .catch(this.handleError);
     }
 
+    updateSetPartFound(setNumber: string, setPartId: number, quantityFound: number) {
+        var patchUrl = this._baseServiceUrl + "/sets/" + setNumber + "/parts/" + setPartId;
+        console.log(patchUrl);
+        var body = [{
+            "op": "replace",
+            "path": "/quantityFound",
+            "value": quantityFound
+        }];
+
+        this._http.patch(patchUrl,body)
+        .catch(this.handleError).subscribe();
+    }
+
     private handleError(err: HttpErrorResponse) {
         console.log(err.message);
         return Observable.throw(err.message);

@@ -62,6 +62,7 @@ export class SetDetailComponent implements OnInit {
     }
     
     //send update to database
+    this._setService.updateSetPartFound(this.set.setNumber, setPart.id, setPart.quantityRemaining);
 
     setPart.quantityFound = setPart.quantityFound + setPart.quantityRemaining;
     setPart.quantityRemaining = setPart.quantityNeeded - setPart.quantityFound;
