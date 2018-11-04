@@ -5,24 +5,34 @@
 <div>{{ set.name }}</div>                    
 <div>{{ set.theme }}</div>
 
+<div class="row">
+    <div class="btn-group btn-group-sm">
+        <button class="btn btn-default" [class.active]="filterBy==='all'" (click)="performFilter('all')">All</button>
+        <button class="btn btn-default" [class.active]="filterBy==='find'" (click)="performFilter('find')">Need To Find</button>
+        <button class="btn btn-default" [class.active]="filterBy==='found'" (click)="performFilter('found')">Found</button>
+    </div>
+</div>
+
 
 <div class='table-responsive'>
-    <table class='table' *ngIf='setParts && setParts.length'>
+    <table class='table' *ngIf='visibleSetParts && visibleSetParts.length'>
         <thead>
             <tr>
                 <th> </th>
-                <th>Part No.</th>
-                <th>Name</th>                    
-                <th>Need</th>               
+                <th (click)="performSort('partNumber')">Part No.</th>
+                <th (click)="performSort('name')">Name</th>  
+                <th (click)="performSort('color')">Color</th>                    
+                <th (click)="performSort('need')">Need</th>               
                 <th>Found</th>
                 <th> </th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor='let setPart of setParts'>
+            <tr *ngFor='let setPart of visibleSetParts'>
                 <td><img [src]='setPart.partImageUrl' [style.width.px]='setPartWidth' [style.margin.px]='imageMargin' > </td>
                 <td>{{ setPart.partNumber }}</td>
                 <td>{{ setPart.name }}</td>
+                <td>{{ setPart.color }}</td>
                 <td>{{ setPart.quantityNeeded }}</td>
                 <td>{{ setPart.quantityFound }}</td>
                 <td><button class='btn btn-primary' (click)='updatePartFoundCount(setPart)' >Found</button><input type='number' [(ngModel)]='setPart.quantityRemaining'></td>

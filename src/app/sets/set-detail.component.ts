@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChange } from '@angular/core';
 import {ActivatedRoute } from '@angular/router';
 
 import { ISet } from './iset';
@@ -16,8 +16,43 @@ export class SetDetailComponent implements OnInit {
   setPartWidth: number = 40;
   set: ISet;
   setParts: ISetPart[];
+  visibleSetParts: ISetPart[];
+  filteredBy: string = 'find';
+
 
   constructor(private _route: ActivatedRoute, private _setService: SetService) { }
+
+
+  performFilter(filterBy: string) {
+    filterBy = filterBy.toLocaleLowerCase();
+    if(filterBy==='all'){
+      this.visibleSetParts = this.setParts;
+    }
+    else if(filterBy==='find') {
+      this.visibleSetParts = this.setParts.filter((part: ISetPart) => (part.quantityNeeded - part.quantityFound) > 0);
+    }
+    else if(filterBy==='found'){
+      this.visibleSetParts = this.setParts.filter((part: ISetPart) => (part.quantityNeeded - part.quantityFound) == 0);
+    }
+    this.filteredBy = filterBy;
+  }
+  
+  performSort(sortBy: string) {
+    sortBy = sortBy.toLocaleLowerCase();
+    if(sortBy ==='name') {
+      this.visibleSetParts.sort(sortByNameAsc);
+    }
+    else if(sortBy === 'color') {
+      this.visibleSetParts.sort(sortByColorAsc);
+    }
+    else if(sortBy === 'partnumber') {
+      this.visibleSetParts.sort(sortByPartNumberAsc);
+    }
+    else if(sortBy === 'need') {
+      this.visibleSetParts.sort(sortByNeedDesc);
+    }
+  }
+
 
   updatePartFoundCount(setPart: ISetPart) {
 
@@ -30,10 +65,13 @@ export class SetDetailComponent implements OnInit {
 
     setPart.quantityFound = setPart.quantityFound + setPart.quantityRemaining;
     setPart.quantityRemaining = setPart.quantityNeeded - setPart.quantityFound;
+    this.performFilter(this.filteredBy);
 
     //toast message that it was updated?
-    //alert('changing ' + setPart.id + ' quanityRemaining = ' + setPart.quantityRemaining);
+    console.log('changed ' + setPart.id + ' quanityRemaining = ' + setPart.quantityRemaining);
   }
+
+
 
   ngOnInit() {
     let setNumber = this._route.snapshot.paramMap.get('setNumber');
@@ -48,8 +86,33 @@ export class SetDetailComponent implements OnInit {
     this._setService.getSetParts(setNumber)
       .subscribe(setParts => {
         this.setParts = setParts;
+        this.performFilter(this.filteredBy);
       },
       error => this.errorMessage = <any>error);
   }
 
+}
+
+function sortByColorAsc(s1: ISetPart, s2: ISetPart) {
+  if(s1.color > s2.color) return 1;
+  else if(s1.color === s2.color) return 0;
+  else return -1;
+}
+
+function sortByNameAsc(s1: ISetPart, s2: ISetPart) {
+  if(s1.name > s2.name) return 1;
+  else if(s1.name === s2.name) return 0;
+  else return -1;
+}
+
+function sortByNeedDesc(s1: ISetPart, s2: ISetPart) {
+  if(s1.quantityNeeded < s2.quantityNeeded) return 1;
+  else if(s1.quantityNeeded === s2.quantityNeeded) return 0;
+  else return -1;
+}
+
+function sortByPartNumberAsc(s1: ISetPart, s2: ISetPart) {
+  if(s1.partNumber > s2.partNumber) return 1;
+  else if(s1.partNumber === s2.partNumber) return 0;
+  else return -1;
 }
