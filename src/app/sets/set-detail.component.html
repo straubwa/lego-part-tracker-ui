@@ -25,6 +25,7 @@
                 <th (click)="performSort('need')">Need</th>               
                 <th>Found</th>
                 <th> </th>
+                <th> </th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +37,7 @@
                 <td>{{ setPart.quantityNeeded }}</td>
                 <td>{{ setPart.quantityFound }}</td>
                 <td><button class='btn btn-primary' (click)='updatePartFoundCount(setPart)' >Found</button><input type='number' [(ngModel)]='setPart.quantityRemaining'></td>
+                <td><button class='btn btn-primary' (click)='clearPartFoundCount(setPart)' >Clear Found</button></td>
             </tr>
         </tbody>
     </table>

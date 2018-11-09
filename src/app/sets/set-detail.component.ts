@@ -73,6 +73,20 @@ export class SetDetailComponent implements OnInit {
   }
 
 
+  clearPartFoundCount(setPart: ISetPart) {
+    
+    //send update to database
+    this._setService.updateSetPartFound(this.set.setNumber, setPart.id, 0);
+
+    setPart.quantityFound = 0;
+    setPart.quantityRemaining = setPart.quantityNeeded;
+    this.performFilter(this.filteredBy);
+
+    //toast message that it was updated?
+    console.log('cleared parts found for ' + setPart.id + ' quanityRemaining = ' + setPart.quantityRemaining);
+  }
+
+
 
   ngOnInit() {
     let setNumber = this._route.snapshot.paramMap.get('setNumber');
