@@ -21,7 +21,7 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "node_modules/bootstrap-css-only/css/bootstrap.min.css",
+              "node_modules/bootswatch/dist/spacelab/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []
