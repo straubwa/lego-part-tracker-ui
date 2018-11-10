@@ -1,10 +1,11 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
-import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
+import { catchError } from 'rxjs/operators';
+
+
 
 import { ISet } from './iset';
 import { ISetPart } from './isetpart';
@@ -17,20 +18,20 @@ export class SetService {
 
     getSets(): Observable<ISet[]> {
         var getUrl = this._baseServiceUrl + "/sets";
-        return this._http.get<ISet[]>(getUrl)
-            .catch(this.handleError);
+        return this._http.get<ISet[]>(getUrl).pipe(
+            catchError(this.handleError))
     }
 
     getSet(setNumber: string): Observable<ISet>{
         var getUrl = this._baseServiceUrl + "/sets/" + setNumber;
-        return this._http.get<ISet>(getUrl)
-            .catch(this.handleError);
+        return this._http.get<ISet>(getUrl).pipe(
+            catchError(this.handleError))
     }
 
     getSetParts(setNumber: string): Observable<ISetPart[]> {
         var getUrl = this._baseServiceUrl + "/sets/" + setNumber + "/parts";
-        return this._http.get<ISetPart[]>(getUrl)
-            .catch(this.handleError);
+        return this._http.get<ISetPart[]>(getUrl).pipe(
+            catchError(this.handleError))
     }
 
     updateSetPartFound(setNumber: string, setPartId: number, quantityFound: number) {
@@ -42,12 +43,13 @@ export class SetService {
             "value": quantityFound
         }];
 
-        this._http.patch(patchUrl,body)
-        .catch(this.handleError).subscribe();
+        this._http.patch(patchUrl,body).pipe(
+            catchError(this.handleError))
+        .subscribe();
     }
 
     private handleError(err: HttpErrorResponse) {
         console.log(err.message);
-        return Observable.throw(err.message);
+        return observableThrowError(err.message);
     }
 }
