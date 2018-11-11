@@ -28,7 +28,9 @@ export class SetListComponent {
 
     performFilter(filterBy: string): ISet[] {
         filterBy = filterBy.toLocaleLowerCase();
-        return this.sets.filter((set: ISet) => set.name.toLocaleLowerCase().indexOf(filterBy) !== -1 || set.theme.toLocaleLowerCase().indexOf(filterBy) !== -1);
+        return this.sets.filter((set: ISet) => set.name.toLocaleLowerCase().indexOf(filterBy) !== -1 
+        || set.theme.toLocaleLowerCase().indexOf(filterBy) !== -1
+        || set.setNumber.toLocaleLowerCase().indexOf(filterBy) !== -1 );
     }
 
     ngOnInit(): void {
@@ -36,7 +38,7 @@ export class SetListComponent {
             .subscribe(sets => {
                 this.sets = sets;
                 this.filteredSets = this.sets;
-                this.listFilter = 'Ninjago';
+                this.listFilter = '';
             }, 
                 error => this.errorMessage = <any>error);
     }
