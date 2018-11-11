@@ -23,18 +23,16 @@ export class SetDetailComponent implements OnInit {
   constructor(private _route: ActivatedRoute, private _setService: SetService) { }
 
 
-  performFilter(filterBy: string) {
-    filterBy = filterBy.toLocaleLowerCase();
-    if(filterBy==='all'){
+  performFilter() {
+    if(this.filteredBy==='all'){
       this.visibleSetParts = this.setParts;
     }
-    else if(filterBy==='find') {
+    else if(this.filteredBy==='find') {
       this.visibleSetParts = this.setParts.filter((part: ISetPart) => (part.quantityNeeded - part.quantityFound) > 0);
     }
-    else if(filterBy==='found'){
+    else if(this.filteredBy==='found'){
       this.visibleSetParts = this.setParts.filter((part: ISetPart) => (part.quantityNeeded - part.quantityFound) == 0);
     }
-    this.filteredBy = filterBy;
   }
   
   performSort(sortBy: string) {
@@ -66,7 +64,7 @@ export class SetDetailComponent implements OnInit {
 
     setPart.quantityFound = setPart.quantityFound + setPart.quantityRemaining;
     setPart.quantityRemaining = setPart.quantityNeeded - setPart.quantityFound;
-    this.performFilter(this.filteredBy);
+    this.performFilter();
 
     //toast message that it was updated?
     console.log('changed ' + setPart.id + ' quanityRemaining = ' + setPart.quantityRemaining);
@@ -80,7 +78,7 @@ export class SetDetailComponent implements OnInit {
 
     setPart.quantityFound = 0;
     setPart.quantityRemaining = setPart.quantityNeeded;
-    this.performFilter(this.filteredBy);
+    this.performFilter();
 
     //toast message that it was updated?
     console.log('cleared parts found for ' + setPart.id + ' quanityRemaining = ' + setPart.quantityRemaining);
@@ -101,7 +99,7 @@ export class SetDetailComponent implements OnInit {
     this._setService.getSetParts(setNumber)
       .subscribe(setParts => {
         this.setParts = setParts;
-        this.performFilter(this.filteredBy);
+        this.performFilter();
       },
       error => this.errorMessage = <any>error);
   }
