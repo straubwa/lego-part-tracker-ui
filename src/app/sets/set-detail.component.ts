@@ -51,6 +51,15 @@ export class SetDetailComponent implements OnInit {
     }
   }
 
+  clearAllPartsFound() {
+    this._setService.updateSetPartsClearFound(this.set.setNumber);
+    //foreach item in array, set found = 0 and remaining = need
+    for(let p of this.setParts) {
+      p.quantityFound = 0;
+      p.quantityRemaining = p.quantityNeeded;
+    }
+    this.performFilter();
+  }
 
   updatePartFoundCount(setPart: ISetPart) {
 

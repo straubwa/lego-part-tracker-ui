@@ -48,6 +48,14 @@ export class SetService {
         .subscribe();
     }
 
+    updateSetPartsClearFound(setNumber: string) {
+        var url = this._baseServiceUrl + "/sets/" + setNumber + "/parts/clearfound";
+        console.log(url);
+        this._http.post(url,"").pipe(
+            catchError(this.handleError))
+        .subscribe();
+    }
+
     private handleError(err: HttpErrorResponse) {
         console.log(err.message);
         return observableThrowError(err.message);
