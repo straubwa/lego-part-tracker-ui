@@ -22,7 +22,7 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    NgbModule,
+    NgbModule.forRoot(),
     RouterModule.forRoot([
       {path: 'sets', component: SetListComponent},
       {path: 'sets/:setNumber', component: SetDetailComponent},

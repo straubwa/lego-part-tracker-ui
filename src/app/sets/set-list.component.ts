@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+
 import { ISet } from './iset';
 import { SetService } from './set.service';
 
@@ -23,7 +25,11 @@ export class SetListComponent {
     filteredSets: ISet[];
     sets: ISet[];
 
-    constructor(private _setService: SetService) {
+    constructor(private _setService: SetService, private _modalService: NgbModal) {
+    }
+
+    openModalImage(set: ISet) {
+        this._modalService.open(set);
     }
 
     performFilter(filterBy: string): ISet[] {

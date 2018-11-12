@@ -24,7 +24,7 @@
             </thead>
             <tbody>
                 <tr *ngFor='let set of filteredSets'>
-                    <td><img [src]='set.setImageUrl' [style.width.px]='imageWidth' [style.margin.px]='imageMargin' > </td>
+                    <td><img [src]='set.setImageUrl' [style.width.px]='imageWidth' [style.margin.px]='imageMargin' (click)="openModalImage(set)" > </td>
                     <td><a [routerLink]="['/sets', set.setNumber]">{{ set.setNumber }}</a></td>
                     <td>{{ set.name }}</td>                    
                     <td>{{ set.theme }}</td>
@@ -32,5 +32,15 @@
             </tbody>
         </table>
     </div>
-
 </div>
+
+<ng-template #set let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    </div>
+    <div class="modal-body">
+        <img [src]='set.setImageUrl' >
+    </div>
+    <div class="modal-footer">
+    </div>
+</ng-template>
