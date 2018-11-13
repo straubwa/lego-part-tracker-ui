@@ -3,6 +3,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import { ISet } from './iset';
 import { SetService } from './set.service';
+import { LightboxComponent } from '../shared/lightbox/lightbox.component';
 
 @Component({
     templateUrl: './set-list.component.html'
@@ -29,7 +30,9 @@ export class SetListComponent {
     }
 
     openModalImage(set: ISet) {
-        this._modalService.open(set);
+        const modalRef = this._modalService.open(LightboxComponent, {size: 'lg'});
+        modalRef.componentInstance.title = set.name;
+        modalRef.componentInstance.imageUrl = set.setImageUrl;
     }
 
     performFilter(filterBy: string): ISet[] {

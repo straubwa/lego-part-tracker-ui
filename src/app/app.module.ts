@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { SetListComponent } from './sets/set-list.component';
 import { SetDetailComponent } from './sets/set-detail.component';
 import { HomeComponent } from './home/home.component';
+import { LightboxComponent } from './shared/lightbox/lightbox.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     SetListComponent,
     SetDetailComponent,
-    HomeComponent
+    HomeComponent,
+    LightboxComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +33,9 @@ import { HomeComponent } from './home/home.component';
       {path: '**', redirectTo:'home', pathMatch: 'full'}    ])
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    LightboxComponent
+  ]
 })
 export class AppModule { }
