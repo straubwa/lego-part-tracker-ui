@@ -1,9 +1,11 @@
 import { Component, OnInit, SimpleChange } from '@angular/core';
 import {ActivatedRoute } from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import { ISet } from './iset';
 import { ISetPart } from './isetpart';
 import { SetService } from './set.service';
+import { LightboxComponent } from '../shared/lightbox/lightbox.component';
 
 @Component({
   templateUrl: './set-detail.component.html',
@@ -20,8 +22,13 @@ export class SetDetailComponent implements OnInit {
   filteredBy: string = 'find';
 
 
-  constructor(private _route: ActivatedRoute, private _setService: SetService) { }
+  constructor(private _route: ActivatedRoute, private _setService: SetService, private _modalService: NgbModal) { }
 
+
+  openModalImage(setPart: ISetPart) {
+    const modalRef = this._modalService.open(LightboxComponent);
+    modalRef.componentInstance.imageUrl = setPart.partImageUrl;
+}
 
   performFilter() {
     if(this.filteredBy==='all'){

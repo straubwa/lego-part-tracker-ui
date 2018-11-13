@@ -35,7 +35,7 @@
         </thead>
         <tbody>
             <tr *ngFor='let setPart of visibleSetParts'>
-                <td><img [src]='setPart.partImageUrl' [style.width.px]='setPartWidth' [style.margin.px]='imageMargin' > </td>
+                <td><img [src]='setPart.partImageUrl' [style.width.px]='setPartWidth' [style.margin.px]='imageMargin' (click)="openModalImage(setPart)" > </td>
                 <td>{{ setPart.partNumber }}</td>
                 <td>{{ setPart.name }}</td>
                 <td>{{ setPart.color }}</td>
