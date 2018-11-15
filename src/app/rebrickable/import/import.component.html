@@ -1,0 +1,15 @@
+<h1>Import Set Details</h1>
+<div class='panel panel-primary'>
+  <div class='panel-body'>
+    <div class='row'>
+        <div class='col-md-6'>Set Number (typically with a -1 at the end):</div>
+        <div class='col-md-6'>
+            <input type='text' [(ngModel)]='setNumber' />
+            <button class='btn btn-primary' (click)='importSet()' >Import Set</button>
+        </div>
+    </div>
+    <div class='row'>
+      <div class='col-md-12'>{{ setNumber }}</div>
+    </div>
+  </div>
+</div>

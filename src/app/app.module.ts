@@ -10,6 +10,7 @@ import { SetListComponent } from './sets/set-list.component';
 import { SetDetailComponent } from './sets/set-detail.component';
 import { HomeComponent } from './home/home.component';
 import { LightboxComponent } from './shared/lightbox/lightbox.component';
+import { ImportComponent } from './rebrickable/import/import.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { LightboxComponent } from './shared/lightbox/lightbox.component';
     SetListComponent,
     SetDetailComponent,
     HomeComponent,
-    LightboxComponent
+    LightboxComponent,
+    ImportComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +28,7 @@ import { LightboxComponent } from './shared/lightbox/lightbox.component';
     HttpClientModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([
+      {path: 'import', component: ImportComponent},
       {path: 'sets', component: SetListComponent},
       {path: 'sets/:setNumber', component: SetDetailComponent},
       {path: 'home', component: HomeComponent},
