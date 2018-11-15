@@ -15,7 +15,7 @@ export class RebrickableService {
     
 
     importSet(setNumber: string) {
-        var url = this._baseServiceUrl + "/rebrickable/sets/" + setNumber + "/ImportSet/";
+        var url = this._baseServiceUrl + "/rebrickable/sets/ImportSet/" + setNumber;
         console.log(url);
        this._http.post(url,"").pipe(
            catchError(this.handleError))
