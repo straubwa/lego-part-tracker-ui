@@ -9,7 +9,13 @@
         </div>
     </div>
     <div class='row'>
-      <div class='col-md-12'>{{ setNumber }}</div>
+      <div class='col-md-12'>{{ responseMessage }}</div>
+    </div>
+    <div class='row' *ngIf='importedSet'>
+      <div class='col-md-12'>
+        <img [src]='importedSet.setImageUrl' [style.width.px]='imageWidth' [style.margin.px]='imageMargin' ><br />
+        <a [routerLink]="['/sets', importedSet.setNumber]">{{ importedSet.setNumber }}</a>
+      </div>
     </div>
   </div>
 </div>
