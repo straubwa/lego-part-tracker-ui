@@ -1,9 +1,10 @@
 <h1>{{pageTitle}}</h1>
-
-<div><img [src]='set.setImageUrl' [style.width.px]='imageWidth'> </div>
-<div>{{ set.setNumber }}</div>
-<div>{{ set.name }}</div>                    
-<div>{{ set.theme }}</div>
+<div *ngIf='set'>
+    <div><img [src]='set.setImageUrl' [style.width.px]='imageWidth'> </div>
+    <div>{{ set.setNumber }}</div>
+    <div>{{ set.name }}</div>                    
+    <div>{{ set.theme }}</div>
+</div>
 
 <div class="btn-group btn-group-toggle" ngbRadioGroup name="filteredByOptions" [(ngModel)]="filteredBy" (change)="performFilter()">
     <label ngbButtonLabel class="btn-primary">
@@ -42,7 +43,7 @@
                 <td>{{ setPart.quantityNeeded }}</td>
                 <td>{{ setPart.quantityFound }}</td>
                 <td><button class='btn btn-success' (click)='updatePartFoundCount(setPart)' > {{ setPart.quantityRemaining }} More Found</button> <input class="form-control form-control-sm" type='number' [(ngModel)]='setPart.quantityRemaining'></td>
-                <td><button class='btn btn-warning' (click)='clearPartFoundCount(setPart)' >Clear Found</button></td>
+                <td><button class='btn btn-warning' (click)='clearPartFoundCount(setPart)' *ngIf='setPart.quantityFound != 0' >Clear Found</button></td>
             </tr>
         </tbody>
     </table>
