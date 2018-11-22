@@ -24,11 +24,26 @@ export class SetDetailComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute, private _setService: SetService, private _modalService: NgbModal) { }
 
+  get partsFound(): number {
+    return this.setParts.map(p => p.quantityFound).reduce((prev, next) => prev + next);
+  }
+
+  get partsTotal(): number {
+    return this.setParts.map(p => p.quantityNeeded).reduce((prev, next) => prev + next);
+  }
+
+  get partsDistinctTotal(): number {
+    return this.setParts.length;
+  }
+
+  get partsDistinctRemaining(): number {
+    return this.setParts.filter((part: ISetPart) => (part.quantityNeeded - part.quantityFound) > 0).length;
+  }
 
   openModalImage(setPart: ISetPart) {
     const modalRef = this._modalService.open(LightboxComponent);
     modalRef.componentInstance.imageUrl = setPart.partImageUrl;
-}
+  }
 
   performFilter() {
     if(this.filteredBy==='all'){

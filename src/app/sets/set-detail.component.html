@@ -3,7 +3,11 @@
     <div><img [src]='set.setImageUrl' [style.width.px]='imageWidth'> </div>
     <div>{{ set.setNumber }}</div>
     <div>{{ set.name }}</div>                    
-    <div>{{ set.theme }}</div>
+    <div>{{ set.theme }}</div>          
+    <div>Parts Total: {{ partsTotal }}</div>
+    <div>Parts Found: {{ partsFound }}</div>
+    <div>Distinct Part Count: {{ partsDistinctTotal }}</div>
+    <div>Distinct Part Remaining: {{ partsDistinctRemaining }}</div>
 </div>
 
 <div class="btn-group btn-group-toggle" ngbRadioGroup name="filteredByOptions" [(ngModel)]="filteredBy" (change)="performFilter()">
