@@ -20,12 +20,13 @@ export class SetDetailComponent implements OnInit {
   setParts: ISetPart[];
   visibleSetParts: ISetPart[];
   filteredBy: string = 'find';
+  sortedBy: string = '';
 
 
   constructor(private _route: ActivatedRoute, private _setService: SetService, private _modalService: NgbModal) { }
 
-  get partsFound(): number {
-    return this.setParts.map(p => p.quantityFound).reduce((prev, next) => prev + next);
+  get partsRemaining(): number {
+    return this.setParts.map(p => p.quantityNeeded).reduce((prev, next) => prev + next) - this.setParts.map(p => p.quantityFound).reduce((prev, next) => prev + next);
   }
 
   get partsTotal(): number {
@@ -57,18 +58,22 @@ export class SetDetailComponent implements OnInit {
     }
   }
   
-  performSort(sortBy: string) {
-    sortBy = sortBy.toLocaleLowerCase();
-    if(sortBy ==='name') {
+  changeSort(sortBy: string) {
+    this.sortedBy = sortBy.toLocaleLowerCase();
+    this.performSort();
+  }
+
+  performSort() {
+    if(this.sortedBy ==='name') {
       this.visibleSetParts.sort(sortByNameAsc);
     }
-    else if(sortBy === 'color') {
+    else if(this.sortedBy === 'color') {
       this.visibleSetParts.sort(sortByColorAsc);
     }
-    else if(sortBy === 'partnumber') {
+    else if(this.sortedBy === 'partnumber') {
       this.visibleSetParts.sort(sortByPartNumberAsc);
     }
-    else if(sortBy === 'need') {
+    else if(this.sortedBy === 'need') {
       this.visibleSetParts.sort(sortByNeedDesc);
     }
   }
@@ -81,6 +86,7 @@ export class SetDetailComponent implements OnInit {
       p.quantityRemaining = p.quantityNeeded;
     }
     this.performFilter();
+    this.performSort();
   }
 
   updatePartFoundCount(setPart: ISetPart) {
@@ -96,6 +102,7 @@ export class SetDetailComponent implements OnInit {
     setPart.quantityFound = setPart.quantityFound + setPart.quantityRemaining;
     setPart.quantityRemaining = setPart.quantityNeeded - setPart.quantityFound;
     this.performFilter();
+    this.performSort();
 
     //toast message that it was updated?
     console.log('changed ' + setPart.id + ' quanityRemaining = ' + setPart.quantityRemaining);
@@ -110,6 +117,7 @@ export class SetDetailComponent implements OnInit {
     setPart.quantityFound = 0;
     setPart.quantityRemaining = setPart.quantityNeeded;
     this.performFilter();
+    this.performSort();
 
     //toast message that it was updated?
     console.log('cleared parts found for ' + setPart.id + ' quanityRemaining = ' + setPart.quantityRemaining);

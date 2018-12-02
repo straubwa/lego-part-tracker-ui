@@ -1,38 +1,52 @@
-<h1>{{pageTitle}}</h1>
-<div *ngIf='set'>
-    <div><img [src]='set.setImageUrl' [style.width.px]='imageWidth'> </div>
-    <div>{{ set.setNumber }}</div>
-    <div>{{ set.name }}</div>                    
-    <div>{{ set.theme }}</div>          
-    <div>Parts Total: {{ partsTotal }}</div>
-    <div>Parts Found: {{ partsFound }}</div>
-    <div>Distinct Part Count: {{ partsDistinctTotal }}</div>
-    <div>Distinct Part Remaining: {{ partsDistinctRemaining }}</div>
+<div class="container">
+    <div class="row">
+        <h1 class="col-xs-12">{{pageTitle}}</h1>
+    </div>
+    <div class="row" *ngIf='set && setParts'>
+        <div class="col-xs-12 col-lg-6" >
+            <img [src]='set.setImageUrl' class="img-fluid"> 
+        </div>
+        <div class="col-xs-12 col-lg-6">
+            <div>{{ set.name }}</div>                    
+            <div>Set Number: {{ set.setNumber }}</div>
+            <div>Theme: {{ set.theme }}</div>          
+            <div>Parts Total: {{ partsTotal }}</div>
+            <div>Parts Remaining: {{ partsRemaining }}</div>
+            <div>Distinct Part Count: {{ partsDistinctTotal }}</div>
+            <div>Distinct Part Remaining: {{ partsDistinctRemaining }}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-lg-8">
+            <div class="btn-group btn-group-toggle" ngbRadioGroup name="filteredByOptions" [(ngModel)]="filteredBy" (change)="performFilter()">
+                <label ngbButtonLabel class="btn-primary">
+                <input ngbButton type="radio" value="all"> All Parts
+                </label>
+                <label ngbButtonLabel class="btn-primary">
+                <input ngbButton type="radio" value="find"> Still Need To Find
+                </label>
+                <label ngbButtonLabel class="btn-primary">
+                <input ngbButton type="radio" value="found"> Found All
+                </label>
+            </div>
+        </div>
+        <div class="col-xs-12 col-lg-4">
+            <button type="button" class="btn btn-danger" (click)="clearAllPartsFound()">Clear All Found Parts</button>
+        </div>
+    </div>
 </div>
 
-<div class="btn-group btn-group-toggle" ngbRadioGroup name="filteredByOptions" [(ngModel)]="filteredBy" (change)="performFilter()">
-    <label ngbButtonLabel class="btn-primary">
-      <input ngbButton type="radio" value="all"> All Parts
-    </label>
-    <label ngbButtonLabel class="btn-primary">
-      <input ngbButton type="radio" value="find"> Still Need To Find
-    </label>
-    <label ngbButtonLabel class="btn-primary">
-      <input ngbButton type="radio" value="found"> Found All
-    </label>
-</div>
 
-<button type="button" class="btn btn-danger" (click)="clearAllPartsFound()">Clear All Found Parts</button>
 
 <div class='table-responsive'>
     <table class='table' *ngIf='visibleSetParts && visibleSetParts.length'>
         <thead>
             <tr>
                 <th> </th>
-                <th (click)="performSort('partNumber')">Part No.</th>
-                <th (click)="performSort('name')">Name</th>  
-                <th (click)="performSort('color')">Color</th>                    
-                <th (click)="performSort('need')">Need</th>               
+                <th (click)="changeSort('partNumber')">Part No.</th>
+                <th (click)="changeSort('name')">Name</th>  
+                <th (click)="changeSort('color')">Color</th>                    
+                <th (click)="changeSort('need')">Need</th>               
                 <th>Found</th>
                 <th> </th>
                 <th> </th>
