@@ -8,6 +8,7 @@ export interface ISetPart {
     "partUrl": string;
     "setNumber": string;
     "quantityFound": number;
+    "quantityFoundDateChanged": Date;
     "quantityNeeded": number;
     "quantityRemaining": number; //number of parts remaining to find
 }
