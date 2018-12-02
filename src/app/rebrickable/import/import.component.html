@@ -1,19 +1,22 @@
 <h1>Import Set Details</h1>
-
-<div class='row'>
-    <div class='col-xs-12 col-md-6'>Set Number (typically with a -1 at the end):</div>
-    <div class='col-xs-12 col-md-6'>
-        <input type='text' [(ngModel)]='setNumber' />
-        <button class='btn btn-primary' (click)='importSetTest()' >Import Set</button>
+<div class='panel panel-primary'>
+  <div class='panel-body'>
+    <div class='row'>
+        <div class='col-md-6'>Set Number (typically with a -1 at the end):</div>
+        <div class='col-md-6'>
+            <input type='text' [(ngModel)]='setNumber' />
+            <button class='btn btn-primary' (click)='importSetTest()' >Import Set</button>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-md-12'>{{ responseMessage }}</div>
+        </div>
+        <div class='row' *ngIf='importedSet'>
+          <div class='col-md-12'>
+            <img [src]='importedSet.setImageUrl' [style.width.px]='imageWidth' [style.margin.px]='imageMargin' ><br />
+            <a [routerLink]="['/sets', importedSet.setNumber]">{{ importedSet.setNumber }}</a>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class='col-xs-12'>{{ responseMessage }}</div>
-</div>
-<div class="progress">
-  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 100%">importing</div>
-</div>
-<div class='row' *ngIf='importedSet'>
-  <div class='col-md-12'>
-    <img [src]='importedSet.setImageUrl' [style.width.px]='imageWidth' [style.margin.px]='imageMargin' ><br />
-    <a [routerLink]="['/sets', importedSet.setNumber]">{{ importedSet.setNumber }}</a>
-  </div>
-</div>
+    
