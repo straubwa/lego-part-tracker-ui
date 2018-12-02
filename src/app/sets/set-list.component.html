@@ -26,7 +26,7 @@
                 <tr *ngFor='let set of filteredSets'>
                     <td><img [src]='set.setImageUrl' [style.width.px]='imageWidth' [style.margin.px]='imageMargin' (click)="openModalImage(set)" > </td>
                     <td><a [routerLink]="['/sets', set.setNumber]">{{ set.setNumber }}</a></td>
-                    <td>{{ set.name }}</td>                    
+                    <td>{{ set.name }} <br>Total Parts: {{ set.partsNeeded }}<br>Parts Found: {{ set.partsFound }} </td>                    
                     <td>{{ set.theme }}</td>
                 </tr>
             </tbody>

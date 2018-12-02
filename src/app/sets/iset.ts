@@ -4,4 +4,6 @@ export interface ISet {
     "themeId": number;
     "theme": string;
     "setImageUrl": string;
+    "partsNeeded": number;
+    "partsFound" : number;
 }
