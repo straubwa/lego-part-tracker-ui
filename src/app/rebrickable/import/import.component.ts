@@ -31,6 +31,17 @@ export class ImportComponent implements OnInit {
       error => this.responseMessage = <any>error); 
   }
 
+  importSetTest() {
+    this.responseMessage = 'test import started';
+    this.delay(3000).then(any => {
+      this.responseMessage = "import finished";
+    });  
+  }
+  
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+  }
+
   ngOnInit() {
   }
 
