@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
 import { SetListComponent } from './sets/set-list.component';
@@ -27,6 +28,7 @@ import { ImportComponent } from './rebrickable/import/import.component';
     FormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
+    NgxSpinnerModule,
     RouterModule.forRoot([
       {path: 'import', component: ImportComponent},
       {path: 'sets', component: SetListComponent},
