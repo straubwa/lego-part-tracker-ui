@@ -1,22 +1,26 @@
-<h1>Import Set Details</h1>
-<div class='panel panel-primary'>
-  <div class='panel-body'>
-    <div class='row'>
-        <div class='col-md-6'>Set Number (typically with a -1 at the end):</div>
-        <div class='col-md-6'>
-            <input type='text' [(ngModel)]='setNumber' />
-            <button class='btn btn-primary' (click)='importSetTest()' >Import Set</button>
-          </div>
-        </div>
-        <div class='row'>
-          <div class='col-md-12'>{{ responseMessage }}</div>
-        </div>
-        <div class='row' *ngIf='importedSet'>
-          <div class='col-md-12'>
-            <img [src]='importedSet.setImageUrl' [style.width.px]='imageWidth' [style.margin.px]='imageMargin' ><br />
-            <a [routerLink]="['/sets', importedSet.setNumber]">{{ importedSet.setNumber }}</a>
-          </div>
-        </div>
+<div class='row mb-4'>
+  <div class='col-12'>
+    <h1>Import Set From Rebrickable</h1>
+    Any set found at <a href="https://rebrickable.com" target="_blank">rebrickable</a> can be imported to track the parts you need to find within your collection.
+  </div>
+</div>
+<div class='row mb-3'>
+  <div class='col-10 offset-1 col-md-6 offset-md-3 col-xl-4 offset-xl-2'>
+    <div class='input-group mb-3'>
+      <input type='text' class='form-control border-primary' placeholder="Set Number" [(ngModel)]='setNumber' />
+      <div class='input-group-append'>
+        <button class='btn btn-primary' (click)='importSetTest()' >Import Set</button>
       </div>
     </div>
+  </div>
+</div>
+<div class='row'>
+  <div class='col-12'>{{ responseMessage }}</div>
+</div>
+<div class='row' *ngIf='importedSet'>
+  <div class='col-12'>
+    <img [src]='importedSet.setImageUrl' [style.width.px]='imageWidth' [style.margin.px]='imageMargin' ><br />
+    <a [routerLink]="['/sets', importedSet.setNumber]">{{ importedSet.setNumber }}</a>
+  </div>
+</div>
     
