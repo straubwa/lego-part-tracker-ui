@@ -9,16 +9,26 @@
     <div class='input-group mb-3'>
       <input type='text' class='form-control border-primary' placeholder="Set Number" [(ngModel)]='setNumber' />
       <div class='input-group-append'>
-        <button class='btn btn-primary' (click)='importSet()' >Import Set</button>
+        <button class='btn btn-primary' (click)='importSetTest()' >Import Set</button>
       </div>
     </div>
     <div class="alert alert-info text-center" *ngIf='responseMessage'>{{ responseMessage }}</div>
   </div>
 </div>
-<div class='row' *ngIf='importedSet'>
-  <div class='col-12'>
-    <img [src]='importedSet.setImageUrl' [style.width.px]='imageWidth' [style.margin.px]='imageMargin' ><br />
-    <a [routerLink]="['/sets', importedSet.setNumber]">{{ importedSet.setNumber }}</a>
+
+<div class='row mb-3' *ngIf='importedSet'>
+  <div class='col-10 offset-1 col-md-6 offset-md-3 col-lg-4 offset-lg-2'>
+    <div class='card text-center border-warning' (click)='goToSet(importedSet.setNumber)' >                    
+        <div class='card-body'>
+            <h4>{{ importedSet.name }}</h4>
+            <img class="img-fluid mx-auto d-block" [src]='importedSet.setImageUrl'>
+            <div class='text-left'>
+                <span class='text-info'>Set# {{ importedSet.setNumber }}</span>
+                <span class='float-right text-info'>{{ importedSet.partsNeeded }} parts</span>
+            </div>                            
+            <div>{{ importedSet.theme }}</div>
+        </div>
+    </div>
   </div>
 </div>
     

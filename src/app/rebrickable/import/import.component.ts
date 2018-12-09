@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 import { ISet } from '../../sets/iset';
 import { SetService } from '../../sets/set.service';
@@ -16,7 +17,7 @@ export class ImportComponent implements OnInit {
   importedSet: ISet;
   imageWidth: number = 200;
 
-  constructor(private _setService: SetService, private _rebrickableService: RebrickableService, private spinner: NgxSpinnerService) { }
+  constructor(private _setService: SetService, private _rebrickableService: RebrickableService, private spinner: NgxSpinnerService, private _router: Router) { }
 
   importSet() {
     this.responseMessage = 'import started';
@@ -46,6 +47,10 @@ export class ImportComponent implements OnInit {
         })
       this.spinner.hide();
     });  
+  }
+
+  goToSet(setNumber: string) {
+      this._router.navigate(['/sets', setNumber]);
   }
   
   async delay(ms: number) {
