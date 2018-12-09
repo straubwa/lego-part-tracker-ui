@@ -4,6 +4,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { environment } from '../../environments/environment';
 import { catchError } from 'rxjs/operators';
 
+import { ISet } from '../sets/iset';
+
 
 @Injectable({
     providedIn: 'root',
@@ -14,10 +16,10 @@ export class RebrickableService {
     constructor(private _http: HttpClient) {}
     
 
-    importSet(setNumber: string) {
+    importSet(setNumber: string): Observable<ISet> {
         var url = this._baseServiceUrl + "/rebrickable/sets/ImportSet/" + setNumber;
         console.log(url);
-        return this._http.post(url,"").pipe(
+        return this._http.post<ISet>(url,"").pipe(
            catchError(this.handleError))
     }
 

@@ -23,13 +23,11 @@ export class ImportComponent implements OnInit {
     this.spinner.show();
  
     this._rebrickableService.importSet(this.setNumber)
-      .subscribe(_ => {
+      .subscribe(set => {
         this.responseMessage = "import finished";
-        this._setService.getSet(this.setNumber)
-        .subscribe(set => {
-          this.importedSet = set;
-          this.spinner.hide();
-        });
+        this.setNumber = set.setNumber;
+        this.importedSet = set;
+        this.spinner.hide();
       },
       error => {
         this.responseMessage = <any>error;
@@ -40,8 +38,12 @@ export class ImportComponent implements OnInit {
   importSetTest() {
     this.spinner.show();
     this.responseMessage = 'test import started';
-    this.delay(3000).then(any => {
+    this.delay(1000).then(any => {
       this.responseMessage = "import finished";
+      this._setService.getSet(this.setNumber)
+        .subscribe(set => {
+          this.importedSet = set;
+        })
       this.spinner.hide();
     });  
   }
