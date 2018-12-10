@@ -14,10 +14,13 @@
             <div>Parts Remaining: {{ partsRemaining }}</div>
             <div>Distinct Part Count: {{ partsDistinctTotal }}</div>
             <div>Distinct Part Remaining: {{ partsDistinctRemaining }}</div>
+            <div *ngIf='partsTotal - partsRemaining != 0'>
+                <button type="button" class="btn btn-danger" (click)="clearAllPartsFound()">Start Over</button>
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-lg-8">
+        <div class="col-xs-12">
             <div class="btn-group btn-group-toggle" ngbRadioGroup name="filteredByOptions" [(ngModel)]="filteredBy" (change)="performFilter()">
                 <label ngbButtonLabel class="btn-primary">
                 <input ngbButton type="radio" value="all"> All Parts
@@ -30,38 +33,43 @@
                 </label>
             </div>
         </div>
-        <div class="col-xs-12 col-lg-4">
-            <button type="button" class="btn btn-danger" (click)="clearAllPartsFound()">Clear All Found Parts</button>
-        </div>
     </div>
 </div>
 
 
 
 <div class='table-responsive'>
-    <table class='table' *ngIf='visibleSetParts && visibleSetParts.length'>
+    <table class='table table-sm' *ngIf='visibleSetParts && visibleSetParts.length'>
         <thead>
             <tr>
-                <th> </th>
-                <th (click)="changeSort('partNumber')">Part No.</th>
-                <th (click)="changeSort('name')">Name</th>  
-                <th (click)="changeSort('color')">Color</th>                    
-                <th (click)="changeSort('need')">Need</th>               
-                <th>Found</th>
-                <th> </th>
-                <th> </th>
+                <th style="width: 10%"> </th>
+                <th style="width: 10%" (click)="changeSort('partNumber')">Part No.</th>
+                <th style="width: 30%" (click)="changeSort('name')">Name</th>  
+                <th style="width: 10%" (click)="changeSort('color')">Color</th>                    
+                <th style="width: 5%" class='text-center' (click)="changeSort('need')">Need</th>               
+                <th style="width: 5%" class='text-center'>Found</th>
+                <th style="width: 10%"> </th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor='let setPart of visibleSetParts'>
-                <td><img [src]='setPart.partImageUrl' [style.width.px]='setPartWidth' [style.margin.px]='imageMargin' (click)="openModalImage(setPart)" > </td>
+                <td><img [src]='setPart.partImageUrl'  class="img-fluid" (click)="openModalImage(setPart)" > </td>
                 <td>{{ setPart.partNumber }}</td>
                 <td>{{ setPart.name }}</td>
                 <td>{{ setPart.color }}</td>
-                <td>{{ setPart.quantityNeeded }}</td>
-                <td>{{ setPart.quantityFound }}</td>
-                <td><button class='btn btn-success' (click)='updatePartFoundCount(setPart)' > {{ setPart.quantityRemaining }} More Found</button> <input class="form-control form-control-sm" type='number' [(ngModel)]='setPart.quantityRemaining'></td>
-                <td><button class='btn btn-warning' (click)='clearPartFoundCount(setPart)' *ngIf='setPart.quantityFound != 0' >Clear Found</button></td>
+                <td class='text-center'>{{ setPart.quantityNeeded }}</td>
+                <td class='text-center'>{{ setPart.quantityFound }}</td>
+                <td>
+                    <div class='input-group mb-3'>
+                        <input class="form-control border-success text-right" style="width: 3rem;" type='number' [(ngModel)]='setPart.quantityRemaining'>
+                        <div class='input-group-append'>
+                            <button class='btn btn-success' (click)='updatePartFoundCount(setPart)' > Found</button> 
+                        </div>
+                    </div>
+                    <div>
+                        <button class='btn btn-warning' (click)='clearPartFoundCount(setPart)' *ngIf='setPart.quantityFound != 0' >Clear Found</button>
+                    </div>
+                 </td>
             </tr>
         </tbody>
     </table>
