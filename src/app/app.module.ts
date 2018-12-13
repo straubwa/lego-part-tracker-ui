@@ -12,6 +12,7 @@ import { SetDetailComponent } from './sets/set-detail.component';
 import { HomeComponent } from './home/home.component';
 import { LightboxComponent } from './shared/lightbox/lightbox.component';
 import { ImportComponent } from './rebrickable/import/import.component';
+import { PartGroupMapperComponent } from './parts/admin/part-group-mapper.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ImportComponent } from './rebrickable/import/import.component';
     SetDetailComponent,
     HomeComponent,
     LightboxComponent,
-    ImportComponent
+    ImportComponent,
+    PartGroupMapperComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +32,7 @@ import { ImportComponent } from './rebrickable/import/import.component';
     NgbModule.forRoot(),
     NgxSpinnerModule,
     RouterModule.forRoot([
+      {path: 'admin/partmapper', component: PartGroupMapperComponent},
       {path: 'import', component: ImportComponent},
       {path: 'sets', component: SetListComponent},
       {path: 'sets/:setNumber', component: SetDetailComponent},
