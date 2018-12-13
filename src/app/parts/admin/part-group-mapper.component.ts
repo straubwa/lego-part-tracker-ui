@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { PartService } from '../part.service';
+import { ICategory } from '../icategory';
+
 @Component({
   selector: 'app-part-group-mapper',
   templateUrl: './part-group-mapper.component.html',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PartGroupMapperComponent implements OnInit {
 
-  constructor() { }
+  categories: ICategory[];
+
+  constructor(private _partService: PartService) { }
 
   ngOnInit() {
+
+    this._partService.getNoGroupCategories()
+    .subscribe(c => {
+      this.categories = c;
+    })
   }
 
 }
