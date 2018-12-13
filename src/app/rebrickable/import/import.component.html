@@ -9,7 +9,7 @@
     <div class='input-group mb-3'>
       <input type='text' class='form-control border-primary' placeholder="Set Number" [(ngModel)]='setNumber' />
       <div class='input-group-append'>
-        <button class='btn btn-primary' (click)='importSetTest()' >Import Set</button>
+        <button class='btn btn-primary' (click)='importSet()' >Import Set</button>
       </div>
     </div>
     <div class="alert alert-info text-center" *ngIf='responseMessage'>{{ responseMessage }}</div>
