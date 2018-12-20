@@ -13,7 +13,7 @@
   </div>
 </div>
 <div class='row part-box-container'>
-    <div class="part-box border rounded" *ngFor='let p of parts'>
+    <div class="part-box border rounded" *ngFor='let p of parts' [ngClass]="{'border-primary': p.selected }" (click)="toggleSelected(p)" >
       <img class="img-fluid mx-auto d-block" [src]='p.partImageUrl'>
       <span class='text-info'>{{ p.name }}</span>
     </div>

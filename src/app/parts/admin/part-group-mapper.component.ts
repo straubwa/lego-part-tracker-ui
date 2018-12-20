@@ -15,6 +15,7 @@ export class PartGroupMapperComponent implements OnInit {
   categories: ICategory[];
   groups: IGroup[];
   parts: IPart[];
+  selectedParts: IPart[];
 
 
   constructor(private _partService: PartService) { }
@@ -24,7 +25,14 @@ export class PartGroupMapperComponent implements OnInit {
     this._partService.getPartsWithNoGroup(categoryId)
       .subscribe(p => {
         this.parts = p;
+        this.selectedParts = this.parts.filter((p: IPart) => p.selected);
       })
+  }
+
+  toggleSelected(part: IPart) {
+    part.selected = !part.selected;
+
+    this.selectedParts = this.parts.filter((p: IPart) => p.selected);
   }
 
   ngOnInit() {
