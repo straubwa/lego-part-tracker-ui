@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { PartService } from '../part.service';
 import { ICategory } from '../icategory';
@@ -18,7 +19,7 @@ export class PartGroupMapperComponent implements OnInit {
   selectedParts: IPart[];
 
 
-  constructor(private _partService: PartService) { }
+  constructor(private _partService: PartService, private spinner: NgxSpinnerService) { }
 
   fillPartsForCategory(categoryId: number) {
 
@@ -26,7 +27,25 @@ export class PartGroupMapperComponent implements OnInit {
       .subscribe(p => {
         this.parts = p;
         this.selectedParts = this.parts.filter((p: IPart) => p.selected);
+        this.spinner.hide();
       })
+  }
+
+  mapSelectedPartsToGroup(groupId: number) {
+    this.spinner.show();
+    
+    var remaining = this.selectedParts.length;
+
+    for(let p of this.selectedParts) {      
+      this._partService.newPartGroup(p.partNumber, groupId)
+      .subscribe(p => {
+        console.log(JSON.stringify(p));
+        remaining = remaining-1;
+        if(remaining == 0) {
+          this.fillCategoryAndGrid();
+        }
+      })
+    }    
   }
 
   toggleSelected(part: IPart) {
@@ -35,12 +54,18 @@ export class PartGroupMapperComponent implements OnInit {
     this.selectedParts = this.parts.filter((p: IPart) => p.selected);
   }
 
-  ngOnInit() {
-
+  fillCategoryAndGrid() {
     this._partService.getNoGroupCategories()
       .subscribe(c => {
         this.categories = c;
       })
+
+    this.fillPartsForCategory(-1);
+  }
+
+  ngOnInit() {
+    this.spinner.show();
+    this.fillCategoryAndGrid();
 
     this._partService.getGroups()
       .subscribe(g => {

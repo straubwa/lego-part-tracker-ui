@@ -7,6 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { ICategory } from './icategory';
 import { IGroup } from './igroup';
 import { IPart } from './ipart';
+import { IPartGroup } from './ipartgroup';
 
 @Injectable()
 export class PartService {
@@ -30,6 +31,13 @@ export class PartService {
     var getUrl = this._baseServiceUrl + "/parts/Groups";
     return this._http.get<IGroup[]>(getUrl).pipe(
         catchError(this.handleError))
+  }
+
+  newPartGroup(partNumber: string, groupId: number): Observable<IPartGroup> {
+    var postUrl = this._baseServiceUrl + "/parts/PartGroup";
+    var partGroup: IPartGroup = {partNumber:partNumber, groupId:groupId}
+    return this._http.post<IPartGroup>(postUrl, partGroup).pipe(
+      catchError(this.handleError))
   }
   
   private handleError(err: HttpErrorResponse) {
