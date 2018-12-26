@@ -47,18 +47,17 @@
                     <div>{{ setPart.name }}</div>
                     <div>Part Number: {{ setPart.partNumber }}</div>
                 </div>
-                <div class="col-xs-12 col-md-3 col-lg-2 offset-md-1 mt-4">
-                    
-                    <div class='input-group mb-3 button-box'>
-                        <input class="form-control border-success text-right pr-0" type='number' [(ngModel)]='setPart.quantityRemaining'>
-                        <div class='input-group-append'>
-                            <button class='btn btn-success' (click)='updatePartFoundCount(setPart)' > Found</button> 
+                <div class="col-xs-12 col-md-3 col-lg-2 offset-md-1 my-4">
+                        <div class='input-group mb-3 button-box float-right float-md-none'>
+                            <input class="form-control border-success text-right pr-0" type='number' [(ngModel)]='setPart.quantityRemaining'>
+                            <div class='input-group-append'>
+                                <button class='btn btn-success' (click)='updatePartFoundCount(setPart)' > Found</button> 
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button class='btn btn-warning' (click)='clearPartFoundCount(setPart)' *ngIf='setPart.quantityFound != 0' >Clear Found</button>
-                    </div>            
-                </div>
+                        <div class="float-left float-md-none">
+                            <button class='btn btn-warning' (click)='clearPartFoundCount(setPart)' *ngIf='setPart.quantityFound != 0' >Clear Found</button>
+                        </div>            
+                    </div> 
             </div>
     
         </div>
