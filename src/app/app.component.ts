@@ -10,4 +10,10 @@ import { PartService } from './parts/part.service';
 })
 export class AppComponent {
   title = 'Brickfinder';
+  showNavBar: boolean = false;
+
+  toggleNavBar() {
+    this.showNavBar = !this.showNavBar;
+  }
+
 }
