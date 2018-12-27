@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mb-5">
     <div class="row">
         <h1 class="col-xs-12">{{pageTitle}}</h1>
     </div>
@@ -62,43 +62,4 @@
     
         </div>
     </div>
-</div>
-
-
-
-<div class='table-responsive'>
-    <table class='table table-sm' *ngIf='visibleSetParts && visibleSetParts.length'>
-        <thead>
-            <tr>
-                <th style="width: 10%"> </th>
-                <th style="width: 10%" (click)="changeSort('partNumber')">Part No.</th>
-                <th style="width: 30%" (click)="changeSort('name')">Name</th>  
-                <th style="width: 10%" (click)="changeSort('color')">Color</th>                    
-                <th style="width: 5%" class='text-center' (click)="changeSort('need')">Need</th>               
-                <th style="width: 5%" class='text-center'>Found</th>
-                <th style="width: 10%"> </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor='let setPart of visibleSetParts'>
-                <td><img [src]='setPart.partImageUrl'  class="img-fluid" (click)="openModalImage(setPart)" > </td>
-                <td>{{ setPart.partNumber }}</td>
-                <td>{{ setPart.name }}</td>
-                <td>{{ setPart.color }}</td>
-                <td class='text-center'>{{ setPart.quantityNeeded }}</td>
-                <td class='text-center'>{{ setPart.quantityFound }}</td>
-                <td>
-                    <div class='input-group mb-3'>
-                        <input class="form-control border-success text-right" style="width: 3rem;" type='number' [(ngModel)]='setPart.quantityRemaining'>
-                        <div class='input-group-append'>
-                            <button class='btn btn-success' (click)='updatePartFoundCount(setPart)' > Found</button> 
-                        </div>
-                    </div>
-                    <div>
-                        <button class='btn btn-warning' (click)='clearPartFoundCount(setPart)' *ngIf='setPart.quantityFound != 0' >Clear Found</button>
-                    </div>
-                 </td>
-            </tr>
-        </tbody>
-    </table>
 </div>
