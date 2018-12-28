@@ -41,6 +41,15 @@ export class SetDetailComponent implements OnInit {
     return this.setParts.filter((part: ISetPart) => (part.quantityNeeded - part.quantityFound) > 0).length;
   }
 
+  groupIconUrl(name: string): string {
+    if(name != null) {
+      return "assets/group-icons/" + name.toLocaleLowerCase() + ".png";
+    }
+    else {
+      return "assets/group-icons/blank.png";
+    }
+  }
+
   openModalImage(setPart: ISetPart) {
     const modalRef = this._modalService.open(LightboxComponent);
     modalRef.componentInstance.imageUrl = setPart.partImageUrl;

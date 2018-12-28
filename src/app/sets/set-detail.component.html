@@ -2,7 +2,7 @@
     <div class="row">
         <h1 class="col-xs-12">{{pageTitle}}</h1>
     </div>
-    <div class="row" *ngIf='set && setParts'>
+    <div class="row my-4" *ngIf='set && setParts'>
         <div class="col-xs-12 col-lg-6" >
             <img [src]='set.setImageUrl' class="img-fluid"> 
         </div>
@@ -14,6 +14,7 @@
             <div>Parts Remaining: {{ partsRemaining }}</div>
             <div>Distinct Part Count: {{ partsDistinctTotal }}</div>
             <div>Distinct Part Remaining: {{ partsDistinctRemaining }}</div>
+            <div><a href="http://lego.brickinstructions.com/en/search/general/new" target="_new">Find instructions on BrickInstructions.com</a></div>
             <div *ngIf='partsTotal - partsRemaining != 0'>
                 <button type="button" class="btn btn-danger" (click)="clearAllPartsFound()">Start Over</button>
             </div>
@@ -43,6 +44,7 @@
                 </div>
                 <div class="col-xs-12 col-md-4 col-lg-5 offset-md-1 mt-3">
                     <h2>{{ setPart.color }}</h2>
+                    <div class="h4" *ngIf='setPart.groupName'><img [src]='groupIconUrl(setPart.groupName)' class="group-icon align-middle float-right">{{ setPart.groupName }}</div>
                     <h5>Need / Found:<span class="float-right">{{ setPart.quantityNeeded }} / {{ setPart.quantityFound }}</span></h5>
                     <div>{{ setPart.name }}</div>
                     <div>Part Number: {{ setPart.partNumber }}</div>

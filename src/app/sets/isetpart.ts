@@ -11,4 +11,7 @@ export interface ISetPart {
     "quantityFoundDateChanged": Date;
     "quantityNeeded": number;
     "quantityRemaining": number; //number of parts remaining to find
+    "categoryId": number;
+    "categoryName": string;
+    "groupName": string;
 }
