@@ -12,7 +12,6 @@ import { LightboxComponent } from '../shared/lightbox/lightbox.component';
   styleUrls: ['./set-detail.component.css']
 })
 export class SetDetailComponent implements OnInit {
-  pageTitle: string = 'Details for set ';
   errorMessage: string;
   imageWidth: number = 600; 
   setPartWidth: number = 40;
@@ -73,19 +72,24 @@ export class SetDetailComponent implements OnInit {
   }
 
   performSort() {
-    if(this.sortedBy ==='name') {
+    if(this.sortedBy ==='grouping') {
+      this.visibleSetParts.sort(sortByGroupAsc);
+    }
+    else if(this.sortedBy ==='name') {
       this.visibleSetParts.sort(sortByNameAsc);
     }
     else if(this.sortedBy === 'color') {
       this.visibleSetParts.sort(sortByColorAsc);
     }
-    else if(this.sortedBy === 'partnumber') {
+    else if(this.sortedBy === 'part number') {
       this.visibleSetParts.sort(sortByPartNumberAsc);
     }
-    else if(this.sortedBy === 'need') {
+    else if(this.sortedBy === 'count needed') {
       this.visibleSetParts.sort(sortByNeedDesc);
     }
   }
+
+  sortOptions = ['grouping', 'name', 'color', 'part number', 'count needed']
 
   clearAllPartsFound() {
     this._setService.updateSetPartsClearFound(this.set.setNumber);
@@ -136,7 +140,6 @@ export class SetDetailComponent implements OnInit {
 
   ngOnInit() {
     let setNumber = this._route.snapshot.paramMap.get('setNumber');
-    this.pageTitle += setNumber;
 
     this._setService.getSet(setNumber)
       .subscribe(set => {
@@ -175,5 +178,11 @@ function sortByNeedDesc(s1: ISetPart, s2: ISetPart) {
 function sortByPartNumberAsc(s1: ISetPart, s2: ISetPart) {
   if(s1.partNumber > s2.partNumber) return 1;
   else if(s1.partNumber === s2.partNumber) return 0;
+  else return -1;
+}
+
+function sortByGroupAsc(s1: ISetPart, s2: ISetPart) {
+  if(s1.groupName > s2.groupName) return 1;
+  else if(s1.groupName === s2.groupName) return 0;
   else return -1;
 }

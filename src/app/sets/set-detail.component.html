@@ -1,6 +1,6 @@
 <div class="container mb-5">
-    <div class="row">
-        <h1 class="col-xs-12">{{pageTitle}}</h1>
+    <div class="row" *ngIf='set'>
+        <h1 class="col-xs-12">{{ set.name }} <span class="text-secondary">(Set# {{ set.setNumber }})</span></h1>
     </div>
     <div class="row my-4" *ngIf='set && setParts'>
         <div class="col-xs-12 col-lg-6" >
@@ -14,15 +14,15 @@
             <div>Parts Remaining: {{ partsRemaining }}</div>
             <div>Distinct Part Count: {{ partsDistinctTotal }}</div>
             <div>Distinct Part Remaining: {{ partsDistinctRemaining }}</div>
-            <div><a href="http://lego.brickinstructions.com/en/search/general/new" target="_new">Find instructions on BrickInstructions.com</a></div>
+            <div class="mb-4"><a href="http://lego.brickinstructions.com/en/search/general/new" target="_new">Find instructions on BrickInstructions.com</a></div>
             <div *ngIf='partsTotal - partsRemaining != 0'>
                 <button type="button" class="btn btn-danger" (click)="clearAllPartsFound()">Start Over</button>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12">
-            <div class="btn-group btn-group-toggle" ngbRadioGroup name="filteredByOptions" [(ngModel)]="filteredBy" (change)="performFilter()">
+        <div class="col-xs-12 col-md-4">
+            <div class="btn-group btn-group-toggle mb-3" ngbRadioGroup name="filteredByOptions" [(ngModel)]="filteredBy" (change)="performFilter()">
                 <label ngbButtonLabel class="btn-primary">
                 <input ngbButton type="radio" value="all"> All Parts
                 </label>
@@ -32,6 +32,16 @@
                 <label ngbButtonLabel class="btn-primary">
                 <input ngbButton type="radio" value="found"> Found All
                 </label>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-4 offset-md-4">
+            <div class="input-group mb-3 float-right">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Sort By:</label>
+                </div>
+                <select class="custom-select" #sortBy (change)='changeSort(sortBy.value)'>
+                    <option [value]='o' *ngFor='let o of sortOptions'>{{ o }}</option>
+                </select>
             </div>
         </div>
     </div>
