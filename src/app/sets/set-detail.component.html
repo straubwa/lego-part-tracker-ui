@@ -43,11 +43,11 @@
                     <img [src]='setPart.partImageUrl'  class="img-fluid mx-auto d-block" (click)="openModalImage(setPart)" >
                 </div>
                 <div class="col-xs-12 col-md-4 col-lg-5 offset-md-1 mt-3">
-                    <h2>{{ setPart.color }}</h2>
-                    <div class="h4" *ngIf='setPart.groupName'><img [src]='groupIconUrl(setPart.groupName)' class="group-icon align-middle float-right">{{ setPart.groupName }}</div>
+                    <h2>{{ setPart.color }} <img *ngIf='setPart.groupName' [alt]='setPart.groupName' [src]='groupIconUrl(setPart.groupName)' class="group-icon align-middle float-right"></h2>
                     <h5>Need / Found:<span class="float-right">{{ setPart.quantityNeeded }} / {{ setPart.quantityFound }}</span></h5>
                     <div>{{ setPart.name }}</div>
                     <div>Part Number: {{ setPart.partNumber }}</div>
+                    <div *ngIf='setPart.groupName'>Grouping: {{ setPart.groupName }}</div>
                 </div>
                 <div class="col-xs-12 col-md-3 col-lg-2 offset-md-1 my-4">
                         <div class='input-group mb-3 button-box float-right float-md-none'>
