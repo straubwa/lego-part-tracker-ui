@@ -12,7 +12,7 @@ import { ISetPart } from './isetpart';
 
 @Injectable()
 export class SetService {
-    private _baseServiceUrl = environment.setServiceApiUrl;
+    private _baseServiceUrl = environment.serviceApiUrl;
 
     constructor(private _http: HttpClient) {}
 

@@ -1,8 +1,8 @@
-<div class="container">
-    <div class="row">
-        <h1 class="col-xs-12">{{pageTitle}}</h1>
+<div class="container mb-5">
+    <div class="row" *ngIf='set'>
+        <h1 class="col-xs-12">{{ set.name }} <span class="text-secondary">(Set# {{ set.setNumber }})</span></h1>
     </div>
-    <div class="row" *ngIf='set && setParts'>
+    <div class="row my-4" *ngIf='set && setParts'>
         <div class="col-xs-12 col-lg-6" >
             <img [src]='set.setImageUrl' class="img-fluid"> 
         </div>
@@ -14,14 +14,15 @@
             <div>Parts Remaining: {{ partsRemaining }}</div>
             <div>Distinct Part Count: {{ partsDistinctTotal }}</div>
             <div>Distinct Part Remaining: {{ partsDistinctRemaining }}</div>
+            <div class="mb-4"><a href="http://lego.brickinstructions.com/en/search/general/new" target="_new">Find instructions on BrickInstructions.com</a></div>
             <div *ngIf='partsTotal - partsRemaining != 0'>
                 <button type="button" class="btn btn-danger" (click)="clearAllPartsFound()">Start Over</button>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12">
-            <div class="btn-group btn-group-toggle" ngbRadioGroup name="filteredByOptions" [(ngModel)]="filteredBy" (change)="performFilter()">
+        <div class="col-xs-12 col-md-4">
+            <div class="btn-group btn-group-toggle mb-3" ngbRadioGroup name="filteredByOptions" [(ngModel)]="filteredBy" (change)="performFilter()">
                 <label ngbButtonLabel class="btn-primary">
                 <input ngbButton type="radio" value="all"> All Parts
                 </label>
@@ -33,44 +34,44 @@
                 </label>
             </div>
         </div>
+        <div class="col-xs-12 col-md-4 offset-md-4">
+            <div class="input-group mb-3 float-right">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Sort By:</label>
+                </div>
+                <select class="custom-select" #sortBy (change)='changeSort(sortBy.value)'>
+                    <option [value]='o' *ngFor='let o of sortOptions'>{{ o }}</option>
+                </select>
+            </div>
+        </div>
     </div>
-</div>
-
-
-
-<div class='table-responsive'>
-    <table class='table table-sm' *ngIf='visibleSetParts && visibleSetParts.length'>
-        <thead>
-            <tr>
-                <th style="width: 10%"> </th>
-                <th style="width: 10%" (click)="changeSort('partNumber')">Part No.</th>
-                <th style="width: 30%" (click)="changeSort('name')">Name</th>  
-                <th style="width: 10%" (click)="changeSort('color')">Color</th>                    
-                <th style="width: 5%" class='text-center' (click)="changeSort('need')">Need</th>               
-                <th style="width: 5%" class='text-center'>Found</th>
-                <th style="width: 10%"> </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor='let setPart of visibleSetParts'>
-                <td><img [src]='setPart.partImageUrl'  class="img-fluid" (click)="openModalImage(setPart)" > </td>
-                <td>{{ setPart.partNumber }}</td>
-                <td>{{ setPart.name }}</td>
-                <td>{{ setPart.color }}</td>
-                <td class='text-center'>{{ setPart.quantityNeeded }}</td>
-                <td class='text-center'>{{ setPart.quantityFound }}</td>
-                <td>
-                    <div class='input-group mb-3'>
-                        <input class="form-control border-success text-right" style="width: 3rem;" type='number' [(ngModel)]='setPart.quantityRemaining'>
-                        <div class='input-group-append'>
-                            <button class='btn btn-success' (click)='updatePartFoundCount(setPart)' > Found</button> 
+    <div class="row">
+        <div class="col-md-12 offset-md-0 col-lg-10 offset-lg-1">
+            
+            <div class="row border border-secondary rounded mt-3" *ngFor='let setPart of visibleSetParts'>
+                <div class="col-xs-12 col-md-3">
+                    <img [src]='setPart.partImageUrl'  class="img-fluid mx-auto d-block" (click)="openModalImage(setPart)" >
+                </div>
+                <div class="col-xs-12 col-md-4 col-lg-5 offset-md-1 mt-3">
+                    <h2>{{ setPart.color }} <img *ngIf='setPart.groupName' [alt]='setPart.groupName' [src]='groupIconUrl(setPart.groupName)' class="group-icon align-middle float-right"></h2>
+                    <h5>Need / Found:<span class="float-right">{{ setPart.quantityNeeded }} / {{ setPart.quantityFound }}</span></h5>
+                    <div>{{ setPart.name }}</div>
+                    <div>Part Number: {{ setPart.partNumber }}</div>
+                    <div *ngIf='setPart.groupName'>Grouping: {{ setPart.groupName }}</div>
+                </div>
+                <div class="col-xs-12 col-md-3 col-lg-2 offset-md-1 my-4">
+                        <div class='input-group mb-3 button-box float-right float-md-none'>
+                            <input class="form-control border-success text-right pr-0" type='number' [(ngModel)]='setPart.quantityRemaining'>
+                            <div class='input-group-append'>
+                                <button class='btn btn-success' (click)='updatePartFoundCount(setPart)' > Found</button> 
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button class='btn btn-warning' (click)='clearPartFoundCount(setPart)' *ngIf='setPart.quantityFound != 0' >Clear Found</button>
-                    </div>
-                 </td>
-            </tr>
-        </tbody>
-    </table>
+                        <div class="float-left float-md-none">
+                            <button class='btn btn-warning' (click)='clearPartFoundCount(setPart)' *ngIf='setPart.quantityFound != 0' >Clear Found</button>
+                        </div>            
+                    </div> 
+            </div>
+    
+        </div>
+    </div>
 </div>

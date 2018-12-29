@@ -11,7 +11,7 @@ import { ISet } from '../sets/iset';
     providedIn: 'root',
   })
 export class RebrickableService {
-    private _baseServiceUrl = environment.setServiceApiUrl;
+    private _baseServiceUrl = environment.serviceApiUrl;
 
     constructor(private _http: HttpClient) {}
     
