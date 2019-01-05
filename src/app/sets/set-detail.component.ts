@@ -108,12 +108,12 @@ export class SetDetailComponent implements OnInit {
       alert('you can only find as many as you need, not more');
       return;
     }
-    
-    //send update to database
-    this._setService.updateSetPartFound(this.set.setNumber, setPart.id, setPart.quantityRemaining);
 
     setPart.quantityFound = setPart.quantityFound + setPart.quantityRemaining;
     setPart.quantityRemaining = setPart.quantityNeeded - setPart.quantityFound;
+
+    this._setService.updateSetPartFound(this.set.setNumber, setPart.id, setPart.quantityFound);
+
     this.performFilter();
     this.performSort();
 
