@@ -22,6 +22,10 @@
   <div class='col-12 part-box-container'>
     <div class="part-box border rounded" *ngFor='let p of parts' [ngClass]="{'border-primary': p.selected }" (click)="toggleSelected(p)" >
       <img class="img-fluid mx-auto d-block" [src]='p.partImageUrl'>
+      <div class="text-info text-left">
+        {{ p.partNumber }}
+        <span class="float-right">{{ p.partCount }}pcs</span>
+      </div>
       <span class='text-info'>{{ p.name }}</span>
     </div>
   </div>
