@@ -29,7 +29,7 @@ import { PartGroupMapperComponent } from './parts/admin/part-group-mapper.compon
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    NgbModule.forRoot(),
+    NgbModule,
     NgxSpinnerModule,
     RouterModule.forRoot([
       {path: 'admin/partmapper', component: PartGroupMapperComponent},
