@@ -26,6 +26,12 @@ export class PartService {
     return this._http.get<IPart[]>(getUrl).pipe(
         catchError(this.handleError))
   }
+  
+  getPartsByGroup(groupId: number): Observable<IPart[]> {
+    var getUrl = this._baseServiceUrl + "/parts/Groups/" + groupId +"/Parts/";
+    return this._http.get<IPart[]>(getUrl).pipe(
+        catchError(this.handleError))
+  }
 
   getGroups(): Observable<IGroup[]> {
     var getUrl = this._baseServiceUrl + "/parts/Groups";

@@ -4,4 +4,5 @@ export interface IPart {
     "partImageUrl": string;
     "partCount": number;
     "selected": boolean;
+    "subgroupId": number;
 }
