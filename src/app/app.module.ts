@@ -14,6 +14,7 @@ import { LightboxComponent } from './shared/lightbox/lightbox.component';
 import { ImportComponent } from './rebrickable/import/import.component';
 import { PartGroupMapperComponent } from './parts/admin/part-group-mapper.component';
 import { GroupSubgroupMapperComponent } from './parts/admin/group-subgroup-mapper.component';
+import { SubgroupComponent } from './parts/admin/subgroup.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { GroupSubgroupMapperComponent } from './parts/admin/group-subgroup-mappe
     LightboxComponent,
     ImportComponent,
     PartGroupMapperComponent,
-    GroupSubgroupMapperComponent
+    GroupSubgroupMapperComponent,
+    SubgroupComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,7 @@ import { GroupSubgroupMapperComponent } from './parts/admin/group-subgroup-mappe
       {path: 'sets', component: SetListComponent},
       {path: 'sets/:setNumber', component: SetDetailComponent},
       {path: 'home', component: HomeComponent},
+      {path: 'subgroup', component: SubgroupComponent},
       {path: '', redirectTo:'home', pathMatch: 'full'},
       {path: '**', redirectTo:'home', pathMatch: 'full'}    ])
   ],
