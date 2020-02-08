@@ -8,6 +8,7 @@ import { ICategory } from './icategory';
 import { IGroup } from './igroup';
 import { IPart } from './ipart';
 import { IPartGroup } from './ipartgroup';
+import { ISubgroup } from './isubgroup';
 
 @Injectable()
 export class PartService {
@@ -43,6 +44,12 @@ export class PartService {
     var postUrl = this._baseServiceUrl + "/parts/PartGroup";
     var partGroup: IPartGroup = {partNumber:partNumber, groupId:groupId}
     return this._http.post<IPartGroup>(postUrl, partGroup).pipe(
+      catchError(this.handleError))
+  }
+
+  newSubgroup(subGroup: ISubgroup): Observable<IPartGroup> {
+    var postUrl = this._baseServiceUrl + `/parts/Groups/${subGroup.groupId}/Subgroups`;
+    return this._http.post<IPartGroup>(postUrl, subGroup).pipe(
       catchError(this.handleError))
   }
   
