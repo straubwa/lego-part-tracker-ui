@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { ImageService } from '../../shared/image.service';
+
 @Component({
   selector: 'app-subgroup',
   templateUrl: './subgroup.component.html',
@@ -10,7 +12,7 @@ export class SubgroupComponent implements OnInit {
 
   selectedFile: File = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private _imageService: ImageService, private http: HttpClient) { }
 
   onFileSelected(event) {
     this.selectedFile = <File>event.target.files[0];
@@ -18,11 +20,9 @@ export class SubgroupComponent implements OnInit {
 
   onUpload() {
     console.log('onUpload start');
-    const fd = new FormData();
-    fd.append('image', this.selectedFile, this.selectedFile.name);
-    this.http.post('https://api.imgbb.com/1/upload?key=ddc08e4f2aa4ccc9ccc50577a11be99c', fd)
+    this._imageService.newImageUpload(this.selectedFile)
     .subscribe(res => {
-      console.log(res);
+      console.log(`from component: ${res}`);
     });
     console.log('onUpload complete');
   }
