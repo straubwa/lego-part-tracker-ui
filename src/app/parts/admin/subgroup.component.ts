@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { PartService } from '../part.service';
 import { ImageService } from '../../shared/image.service';
 import { ISubgroup } from '../isubgroup';
-import { subscribeOn } from 'rxjs/operators';
 
 @Component({
   selector: 'app-subgroup',
@@ -14,11 +13,19 @@ import { subscribeOn } from 'rxjs/operators';
 export class SubgroupComponent implements OnInit {
 
   selectedFile: File = null;
+  imageUrl: any;
 
   constructor(private _imageService: ImageService, private _partService: PartService, private http: HttpClient) { }
 
   onFileSelected(event) {
     this.selectedFile = <File>event.target.files[0];
+
+    //show file selected to be uploaded
+    var reader = new FileReader();
+    reader.readAsDataURL(this.selectedFile);
+    reader.onload = (_event) => {
+      this.imageUrl = reader.result;
+    }
   }
 
   onUpload() {
