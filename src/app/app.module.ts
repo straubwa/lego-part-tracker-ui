@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {NgxSpinnerModule } from 'ngx-spinner';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { SetListComponent } from './sets/set-list.component';
@@ -35,6 +36,7 @@ import { SubgroupComponent } from './parts/admin/subgroup.component';
     HttpClientModule,
     NgbModule,
     NgxSpinnerModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([
       {path: 'admin/partmapper', component: PartGroupMapperComponent},
       {path: 'admin/groupmapper', component: GroupSubgroupMapperComponent},
