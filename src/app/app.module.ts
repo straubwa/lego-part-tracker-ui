@@ -44,14 +44,14 @@ import { SubgroupComponent } from './parts/admin/subgroup.component';
       {path: 'sets', component: SetListComponent},
       {path: 'sets/:setNumber', component: SetDetailComponent},
       {path: 'home', component: HomeComponent},
-      {path: 'subgroup', component: SubgroupComponent},
       {path: '', redirectTo:'home', pathMatch: 'full'},
       {path: '**', redirectTo:'home', pathMatch: 'full'}    ])
   ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    LightboxComponent
+    LightboxComponent,
+    SubgroupComponent
   ]
 })
 export class AppModule { }

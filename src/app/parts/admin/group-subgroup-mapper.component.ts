@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { PartService } from '../part.service';
 import { IGroup } from '../igroup';
 import { IPart } from '../ipart';
+import { SubgroupComponent } from './subgroup.component'
 
 @Component({
   selector: 'app-group-subgroup-mapper',
@@ -13,11 +15,17 @@ import { IPart } from '../ipart';
 export class GroupSubgroupMapperComponent implements OnInit {
 
   groups: IGroup[];
+  selectedGroup: IGroup;
   parts: IPart[];
   unmappedParts: IPart[];
   selectedunmappedParts: IPart[];
   
-  constructor(private _partService: PartService, private spinner: NgxSpinnerService) { }
+  constructor(private _partService: PartService, private _modalService: NgbModal, private spinner: NgxSpinnerService) { }
+
+  newSubgroup() {
+    const modalRef = this._modalService.open(SubgroupComponent, {size: 'lg'});
+
+  }
 
   changeGroup(groupId: number) {
 

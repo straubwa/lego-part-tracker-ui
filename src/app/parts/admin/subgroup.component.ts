@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { PartService } from '../part.service';
 import { ImageService } from '../../shared/image.service';
@@ -8,14 +9,15 @@ import { ISubgroup } from '../isubgroup';
 @Component({
   selector: 'app-subgroup',
   templateUrl: './subgroup.component.html',
-  styleUrls: ['./subgroup.component.css']
+  styleUrls: ['./subgroup.component.css'],
+  providers: [PartService, ImageService]
 })
 export class SubgroupComponent implements OnInit {
 
   selectedFile: File = null;
   imageUrl: any;
 
-  constructor(private _imageService: ImageService, private _partService: PartService, private http: HttpClient) { }
+  constructor(public activeModal: NgbActiveModal, private _imageService: ImageService, private _partService: PartService, private http: HttpClient) { }
 
   onFileSelected(event) {
     this.selectedFile = <File>event.target.files[0];
