@@ -1,6 +1,13 @@
-
-<input type="file" (change)="onFileSelected($event)" >
-<button type="button" (click)="onUpload()">Upload</button>
-<div>
-    <img [src]="imageUrl" *ngIf="imageUrl" height="76" />
+<div class="modal-header">
+    <h4 class="modal-title" >New Subgroup</h4>
+</div>
+<div class="modal-body">
+    <input hidden #uploader type="file" (change)="onFileSelected($event)" >
+    <button type="button" class="mt-2 btn btn-primary btn-block" (click)="uploader.click()">Select Icon</button>
+    <div class="pt-1">
+        <img [src]="imageUrl" *ngIf="imageUrl" height="76" />
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" *ngIf="imageUrl" (click)="onUpload()">Create</button>
 </div>

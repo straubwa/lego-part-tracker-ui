@@ -23,7 +23,7 @@ export class GroupSubgroupMapperComponent implements OnInit {
   constructor(private _partService: PartService, private _modalService: NgbModal, private spinner: NgxSpinnerService) { }
 
   newSubgroup() {
-    const modalRef = this._modalService.open(SubgroupComponent, {size: 'lg'});
+    const modalRef = this._modalService.open(SubgroupComponent, {size: 'sm'});
 
   }
 
