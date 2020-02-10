@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -13,6 +13,8 @@ import { ISubgroup } from '../isubgroup';
   providers: [PartService, ImageService]
 })
 export class SubgroupComponent implements OnInit {
+
+  @Input() groupId:number;
 
   selectedFile: File = null;
   imageUrl: any;
@@ -38,7 +40,7 @@ export class SubgroupComponent implements OnInit {
       console.log(`image url: ${r}`);
 
       var subgroup: ISubgroup = {
-        groupId : 1, 
+        groupId : this.groupId, 
         name : this.selectedFile.name,
         iconFileName : this.selectedFile.name,
         iconUrl : r
@@ -47,9 +49,9 @@ export class SubgroupComponent implements OnInit {
       this._partService.newSubgroup(subgroup)
       .subscribe(r => {
         console.log(r);
+        
+        this.activeModal.close(r);
       })
-
-      //close out modal, sending back subgroupId
     });
   }
 

@@ -15,7 +15,7 @@ import { SubgroupComponent } from './subgroup.component'
 export class GroupSubgroupMapperComponent implements OnInit {
 
   groups: IGroup[];
-  selectedGroup: IGroup;
+  selectedGroupId: number;
   parts: IPart[];
   unmappedParts: IPart[];
   selectedunmappedParts: IPart[];
@@ -24,7 +24,11 @@ export class GroupSubgroupMapperComponent implements OnInit {
 
   newSubgroup() {
     const modalRef = this._modalService.open(SubgroupComponent, {size: 'sm'});
-
+    modalRef.componentInstance.groupId = this.selectedGroupId;
+    modalRef.result.then((r => {
+      console.log('returned from modal...');
+      console.log(r);
+    }))
   }
 
   changeGroup(groupId: number) {
@@ -33,7 +37,7 @@ export class GroupSubgroupMapperComponent implements OnInit {
   }
   
   fillPartsForGroup(groupId: number) {
-    
+    this.selectedGroupId = groupId;
     this.spinner.show();
 
     this._partService.getPartsByGroup(groupId)
