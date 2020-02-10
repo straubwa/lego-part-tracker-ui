@@ -16,3 +16,9 @@
     text-align: center;
     cursor: pointer;
 }
+
+.icon-box {
+    width: 186px;
+    height: 52px;
+    cursor: pointer;
+}

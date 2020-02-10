@@ -52,6 +52,12 @@ export class PartService {
     return this._http.post<IPartGroup>(postUrl, subGroup).pipe(
       catchError(this.handleError))
   }
+
+  getSubgroups(groupId: number): Observable<ISubgroup[]> {
+    var getUrl = this._baseServiceUrl + `/parts/Groups/${groupId}/Subgroups`;
+    return this._http.get<ISubgroup[]>(getUrl).pipe(
+        catchError(this.handleError))
+  }
   
   private handleError(err: HttpErrorResponse) {
     console.log(err.message);

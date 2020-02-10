@@ -4,5 +4,6 @@ export interface ISubgroup {
     "name": string;
     "iconUrl": string;
     "iconFileName": string;
+    "selected"?: boolean;
     "createdDate"?: Date;
 }
