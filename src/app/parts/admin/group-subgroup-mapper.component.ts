@@ -22,7 +22,9 @@ export class GroupSubgroupMapperComponent implements OnInit {
   selectedSubgroup: ISubgroup;
   parts: IPart[];
   unmappedParts: IPart[];
-  selectedunmappedParts: IPart[];
+  subgroupParts: IPart[];
+  selectedUnmappedParts: IPart[];
+  selectedSubgroupParts: IPart[];
   
   constructor(private _partService: PartService, private _modalService: NgbModal, private spinner: NgxSpinnerService) { }
 
@@ -30,17 +32,41 @@ export class GroupSubgroupMapperComponent implements OnInit {
     const modalRef = this._modalService.open(SubgroupComponent, {size: 'sm'});
     modalRef.componentInstance.groupId = this.selectedGroupId;
     modalRef.result.then((r => {
-      console.log('returned from modal...');
-      console.log(r);
+      this.subGroups.splice(0,0,r);
+      this.changeSubgroup(r);
     }))
   }
 
-  newPartSubgroups() {
+  addPartSubgroups() {
 
+    this.unmappedParts.filter((p: IPart) => p.selected).forEach( p => {
+      p.subgroupId = this.selectedSubgroup.id;
+      p.selected = false;
+      this._partService.addPartSubgroup(this.selectedSubgroup, p.partNumber);
+    })
+
+    this.resetPartLists();
   }
 
   removePartSubgroups() {
 
+    this.subgroupParts.filter((p: IPart) => p.selected).forEach( p => {
+      p.subgroupId = null;
+      p.selected = false;
+      this._partService.removePartSubgroup(this.selectedSubgroup, p.partNumber);
+    })
+
+    this.resetPartLists();
+  }
+
+  resetPartLists() {
+    this.unmappedParts = this.parts.filter((p: IPart) => p.subgroupId <= 0);
+
+    if(this.selectedSubgroup != null){
+      this.subgroupParts = this.parts.filter((p: IPart) => p.subgroupId == this.selectedSubgroup.id);
+    } else {
+      this.subgroupParts = null;
+    }
   }
 
 
@@ -48,15 +74,12 @@ export class GroupSubgroupMapperComponent implements OnInit {
     this.spinner.show();
     this.selectedGroupId = groupId;
     this.selectedGroup = this.groups.find((g: IGroup) => g.id == groupId );
-    
-    //this.selectedGroupId = groupId;
 
     this._partService.getPartsByGroup(groupId)
       .subscribe(p => {
         this.parts = p;
-        this.unmappedParts = this.parts.filter((p: IPart) => p.subgroupId <= 0);
+        this.resetPartLists()
 
-        //get subgroups
         this._partService.getSubgroups(groupId).subscribe(s => {
           this.subGroups = s;
           this.spinner.hide();
@@ -69,17 +92,15 @@ export class GroupSubgroupMapperComponent implements OnInit {
     subgroup.selected = true;
     this.selectedSubgroup = subgroup;
 
-    //load parts mapped to this subgroup
+    this.subgroupParts = this.parts.filter((p: IPart) => p.subgroupId == subgroup.id);
   }
 
-  toggleSelectedMapped(part: IPart) {
-
+  toggleSelectedSubgroup(part: IPart) {
+    part.selected = !part.selected;
   }
 
   toggleSelectedUnmapped(part: IPart) {
     part.selected = !part.selected;
-
-    this.selectedunmappedParts = this.parts.filter((p: IPart) => p.selected && p.subgroupId <= 0);
   }
 
   groupIconUrl(): string {
@@ -95,12 +116,9 @@ export class GroupSubgroupMapperComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();    
 
-//    this.changeGroup(-1);
-
     this._partService.getGroups()
       .subscribe(g => {
-        this.groups = g;        
-//        this.changeGroup(-1);
+        this.groups = g;
         this.spinner.hide();    
       })
   }

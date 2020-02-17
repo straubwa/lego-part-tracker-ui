@@ -1,6 +1,6 @@
 import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import { environment } from '../../environments/environment';
 import { catchError } from 'rxjs/operators';
 
@@ -57,6 +57,22 @@ export class PartService {
     var getUrl = this._baseServiceUrl + `/parts/Groups/${groupId}/Subgroups`;
     return this._http.get<ISubgroup[]>(getUrl).pipe(
         catchError(this.handleError))
+  }
+
+  addPartSubgroup(subGroup: ISubgroup, partNumber: string) {
+    var postUrl = this._baseServiceUrl + `/parts/Groups/${subGroup.groupId}/Subgroups/${subGroup.id}/Parts`;
+    this._http.post(postUrl, {partNumber:partNumber}).pipe(
+      catchError(this.handleError)).subscribe();
+  }
+
+  removePartSubgroup(subGroup: ISubgroup, partNumber: string) {
+    const options = {
+      headers: new HttpHeaders({'Content-Type': 'application/json',}),
+      body: {partNumber:partNumber},
+    };
+    var postUrl = this._baseServiceUrl + `/parts/Groups/${subGroup.groupId}/Subgroups/${subGroup.id}/Parts`;
+    this._http.delete(postUrl, options).pipe(
+      catchError(this.handleError)).subscribe();
   }
   
   private handleError(err: HttpErrorResponse) {

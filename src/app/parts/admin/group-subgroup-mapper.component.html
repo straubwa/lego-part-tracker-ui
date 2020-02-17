@@ -14,13 +14,13 @@
 
   <div class='row mb-4'>
     <div class='col-xs-12 col-5'>
-      <button type="button" class="btn btn-primary btn-block" *ngIf="selectedSubgroup">>></button>
+      <button type="button" class="btn btn-primary btn-block" *ngIf="selectedSubgroup" (click)="addPartSubgroups()">>></button>
     </div>
     <div class='col-xs-12 col-lg-2'>
       <button type="button" class="btn btn-primary btn-block" *ngIf="selectedGroupId > 0" (click)="newSubgroup()">New Subgroup</button>
     </div>
     <div class='col-xs-12 col-5'>
-      <button type="button" class="btn btn-primary btn-block" *ngIf="selectedSubgroup"><<</button>
+      <button type="button" class="btn btn-primary btn-block" *ngIf="selectedSubgroup" (click)="removePartSubgroups()"><<</button>
     </div>
   </div>
 
@@ -42,6 +42,14 @@
       </div>
     </div>
     <div class='col-5 part-box-container'>
+      <div class="part-box border rounded" *ngFor='let p of subgroupParts' [ngClass]="{'border-primary': p.selected }" (click)="toggleSelectedSubgroup(p)" >
+        <img class="img-fluid mx-auto d-block" [src]='p.partImageUrl'>
+        <div class="text-info text-left">
+          {{ p.partNumber }}
+          <span class="float-right">{{ p.partCount }}pcs</span>
+        </div>
+        <span class='text-info'>{{ p.name }}</span>
+      </div>
     </div>
   </div>
   <ngx-spinner size="large" color="#3399F3" type="ball-pulse-rise"></ngx-spinner>
